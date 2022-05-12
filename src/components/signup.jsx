@@ -6,12 +6,18 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { Form, Button, Card, Image, Row, Col } from 'react-bootstrap';
+import { setAuthorized } from '../slices/appSlice.js';
 import routes from '../routes.js';
+import imgSignup from '../../assets/auth.png';
 
 const Signup = () => {
   const { t } = useTranslation();
   const [invalid, setInvalid] = useState(false);
   let history = useHistory();
+  const dispatch = useDispatch();
+
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -37,6 +43,7 @@ const Signup = () => {
         localStorage.setItem('userId', JSON.stringify(authToken));
         localStorage.setItem('username', values.username);
         setInvalid(false);
+        dispatch(setAuthorized(true));
         history.replace({ pathname: "/" });
       } catch (e) {
         if (e.response.status === 409) {
@@ -48,52 +55,79 @@ const Signup = () => {
       }
     },
   });
+  
   return (
-    <form onSubmit={formik.handleSubmit}>
-      <label htmlFor="username">{t('auth.username')}</label>
-      <input
-        id="username"
-        name="username"
-        type="text"
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        value={formik.values.username}
-      />
-      {formik.touched.username && formik.errors.username ? (
-        <div>{formik.errors.username}</div>
-      ) : null}
+    <Card style={{ width: '40rem' }} className="position-absolute top-50 start-50 translate-middle">
+      <Card.Header as="h2">{t('auth.registration')}</Card.Header>
+      <Card.Body>
+        <Row>
+          <Col>
+            <Image src={imgSignup} />
+          </Col>
+          <Col>
+            <Form onSubmit={formik.handleSubmit}>
+              <Form.Group className="mb-3" controlId="username">
+                <Form.Label>{t('auth.username')}</Form.Label>
+                <Form.Control
+                  name = "username"
+                  type="text"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.username}
+                />
+                {formik.touched.username && formik.errors.username ? (
+                  <Form.Text className="text-danger">
+                    {formik.errors.username}
+                  </Form.Text>
+                ) : null}
+              </Form.Group>
 
-      <label htmlFor="password">{t('auth.password')}</label>
-      <input
-        id="password"
-        name="password"
-        type="password"
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        value={formik.values.password}
-      />
-      {formik.touched.password && formik.errors.password ? (
-        <div>{formik.errors.password}</div>
-      ) : null}
+              <Form.Group className="mb-3" controlId="password">
+                <Form.Label>{t('auth.password')}</Form.Label>
+                <Form.Control 
+                  name="password"
+                  type="password"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.password}
+                />
+                {formik.touched.password && formik.errors.password ? (
+                  <Form.Text className="text-danger">
+                    {formik.errors.password}
+                  </Form.Text>
+                ) : null}
+              </Form.Group>
 
-      <label htmlFor="password_confirmation">{t('auth.confirmation')}</label>
-      <input
-        id="password_confirmation"
-        name="password_confirmation"
-        type="password"
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        value={formik.values.password_confirmation}
-      />
-      {formik.touched.password_confirmation && formik.errors.password_confirmation ? (
-        <div>{formik.errors.password_confirmation}</div>
-      ) : null}
+              <Form.Group className="mb-3" controlId="password_confirmation">
+                <Form.Label>{t('auth.confirmation')}</Form.Label>
+                <Form.Control 
+                  name="password_confirmation"
+                  type="password"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.password_confirmation}
+                />
+                {formik.touched.password_confirmation && formik.errors.password_confirmation ? (
+                  <Form.Text className="text-danger">
+                    {formik.errors.password_confirmation}
+                  </Form.Text>
+                ) : null}
+              </Form.Group>
 
-      {invalid && <div>{t('errors.userexists')}</div>}
+              {invalid && <div className="text-danger mb-3">{t('errors.userExists')}</div>}
 
-      <button type="submit">{t('submit')}</button>
-      <ToastContainer />
-    </form>
+              <Button variant="primary" type="submit">
+                {t('submit')}
+              </Button>
+              <ToastContainer />
+            </Form>
+          </Col>
+        </Row>
+      </Card.Body>
+      <Card.Footer className="text-center">
+        <Button variant="outline-primary" size="sm" href="/login">{t('auth.enter')}</Button>
+      </Card.Footer>
+    </Card>
   );
 };
 

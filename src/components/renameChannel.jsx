@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { useFormik } from 'formik';
-import { Modal, FormGroup, FormControl, Button, Form } from 'react-bootstrap';
+import { Modal, FormGroup, FormControl, Button, Form, Dropdown } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { socketContext } from '../init.jsx';
@@ -38,13 +38,13 @@ const RenameChannel = (props) => {
   });
   return (
     <>
-      <Button variant="link" onClick={handleShow}>
-        {t('channels.renamebutton')}
-      </Button>
+      <Dropdown.Item onClick={handleShow}>
+        {t('channels.renameButton')}
+      </Dropdown.Item>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>{t('channels.renamechannel')}</Modal.Title>
+          <Modal.Title>{t('channels.renameChannel')}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={formik.handleSubmit}>

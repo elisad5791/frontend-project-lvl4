@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Modal, Button, Form } from 'react-bootstrap';
+import { Modal, Button, Form, Dropdown } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { socketContext } from '../init.jsx';
 
@@ -23,18 +23,18 @@ const RemoveChannel = (props) => {
   
   return (
     <>
-      <Button variant="link" onClick={handleShow}>
-        {t('channels.removebutton')}
-      </Button>
+      <Dropdown.Item onClick={handleShow}>
+        {t('channels.removeButton')}
+      </Dropdown.Item>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>{t('channels.removechannel')}</Modal.Title>
+          <Modal.Title>{t('channels.removeChannel')}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit}>
             <Button variant="primary" type="submit">
-              {t('submit')}
+              {t('yes')}
             </Button>
           </Form>
         </Modal.Body>

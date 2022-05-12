@@ -1,10 +1,10 @@
 import React from 'react';
-import cn from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
+import { Dropdown, Button, ButtonGroup } from 'react-bootstrap';
 import { setActiveChannel } from '../slices/appSlice.js';
-import AddChannel from './addchannel.jsx';
-import RemoveChannel from './removechannel.jsx';
-import RenameChannel from './renamechannel.jsx';
+import AddChannel from './addChannel.jsx';
+import RemoveChannel from './removeChannel.jsx';
+import RenameChannel from './renameChannel.jsx';
 
 const Channels = (props) => {
   const { channels } = props;
@@ -17,21 +17,23 @@ const Channels = (props) => {
 
   return (
     <>
-      <p>
-        <AddChannel />
-      </p>
+      <AddChannel />
       {channels.map((channel) => {
         const active = channel.id === activeChannel;
-        const btnClass = cn('btn', {
-          'btn-primary':  active,
-          'btn-outline-primary': !active,
-        });
+        const variant = active ? "primary" : "secondary";
         return (
-          <p key={channel.id}>
-            <button className={btnClass} onClick={handleClick(channel.id)}>{channel.name}</button>
-            {channel.removable && <RemoveChannel id={channel.id} />}
-            {channel.removable && <RenameChannel channel={channel} />}
-          </p>
+          <Dropdown as={ButtonGroup} className="w-100 mb-2" key={channel.id}>
+            <Button variant={variant} className="w-100 text-start" onClick={handleClick(channel.id)}>
+              # {channel.name}
+            </Button>
+            { channel.removable && <Dropdown.Toggle split variant={variant} /> }
+            { channel.removable &&  
+              <Dropdown.Menu variant="light">
+                <RemoveChannel id={channel.id} />
+                <RenameChannel channel={channel} />
+              </Dropdown.Menu>
+            }
+          </Dropdown>
         );
       })}
     </>

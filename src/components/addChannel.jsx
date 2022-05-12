@@ -39,13 +39,13 @@ const AddChannel = () => {
   });
   return (
     <>
-      <Button variant="secondary" onClick={handleShow}>
-        {t('channels.addbutton')}
-      </Button>
-
+      <p className="lead d-flex justify-content-between align-items-center">
+        {t('channels.title')}
+        <Button variant="outline" onClick={handleShow} className="p-1 fs-3 lh-1 text-primary">+</Button>
+      </p>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>{t('channels.addchannel')}</Modal.Title>
+          <Modal.Title>{t('channels.addChannel')}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={formik.handleSubmit}>
