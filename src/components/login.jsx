@@ -46,7 +46,7 @@ const Login = () => {
           localStorage.clear();
           setInvalid(true);
         } else {
-          toast(t('errors.network'));
+          toast(t('errors.network'), { type: 'error' });
         }
       }
     },
@@ -62,7 +62,7 @@ const Login = () => {
           <Col>
             <Form onSubmit={formik.handleSubmit}>
               <Form.Group className="mb-3" controlId="username">
-                <Form.Label>{t('auth.username')}</Form.Label>
+                <Form.Label>{t('auth.nik')}</Form.Label>
                 <Form.Control
                   name = "username"
                   type="text"

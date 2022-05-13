@@ -19,6 +19,7 @@ const MessageForm = () => {
     onSubmit: (values) => {
       const username = localStorage.getItem('username');
       const text = filter.clean(values.message);
+      values.message = '';
       socket.emit(
         "newMessage",
         { username, text, channelId: activeChannelId },
@@ -34,6 +35,7 @@ const MessageForm = () => {
           name="message"
           type="text"
           required
+          autoFocus
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.message}

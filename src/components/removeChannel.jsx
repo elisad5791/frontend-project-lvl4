@@ -12,7 +12,8 @@ const RemoveChannel = (props) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     socket.emit(
       "removeChannel",
       { id },

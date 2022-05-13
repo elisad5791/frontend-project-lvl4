@@ -20,8 +20,8 @@ const RenameChannel = (props) => {
     initialValues: {
       name: channel.name,
     },
-    onSubmit: values => {
-      const index = _.findIndex(channels, (o) => o.name === values.name);
+    onSubmit: (values) => {
+      const index = channels.findIndex((item) => item.name === values.name);
       if (index > -1) {
         setInvalid(true);
       } else {
@@ -36,6 +36,7 @@ const RenameChannel = (props) => {
       }
     },
   });
+
   return (
     <>
       <Dropdown.Item onClick={handleShow}>
@@ -57,7 +58,7 @@ const RenameChannel = (props) => {
                 value={formik.values.name}
               />
             </FormGroup>
-            {invalid && <div>{t('errors.channelexists')}</div>}
+            {invalid && <div className="text-danger mb-3">{t('errors.channelExists')}</div>}
             <Button variant="primary" type="submit">
               {t('submit')}
             </Button>

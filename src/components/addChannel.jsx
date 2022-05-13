@@ -4,8 +4,6 @@ import { Modal, FormGroup, FormControl, Button, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { socketContext } from '../init.jsx';
-import _ from 'lodash';
-
 
 const AddChannel = () => {
   const { t } = useTranslation();
@@ -22,7 +20,7 @@ const AddChannel = () => {
       name: '',
     },
     onSubmit: values => {
-      const index = _.findIndex(channels, (o) => o.name === values.name);
+      const index = channels.findIndex((channel) => channel.name === values.name);
       if (index > -1) {
         setInvalid(true);
       } else {
@@ -37,6 +35,7 @@ const AddChannel = () => {
       }
     },
   });
+
   return (
     <>
       <p className="lead d-flex justify-content-between align-items-center">

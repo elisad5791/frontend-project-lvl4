@@ -50,7 +50,7 @@ const Signup = () => {
           localStorage.clear();
           setInvalid(true);
         } else {
-          toast(t('errors.network'));
+          toast(t('errors.network'), { type: 'error' });
         }
       }
     },
@@ -117,7 +117,7 @@ const Signup = () => {
               {invalid && <div className="text-danger mb-3">{t('errors.userExists')}</div>}
 
               <Button variant="primary" type="submit">
-                {t('submit')}
+                {t('auth.register')}
               </Button>
               <ToastContainer />
             </Form>

@@ -7,6 +7,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { Container, Navbar, Image } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
+import SpecialRoute from './specialRoute.jsx';
 import Login from './login.jsx';
 import Logout from './logout.jsx';
 import Signup from './signup.jsx';
@@ -35,9 +36,9 @@ export default function App() {
         <Route path="/signup">
           <Signup />
         </Route>
-        <Route exact path="/">
+        <SpecialRoute exact path="/">
           <Chat />
-        </Route>
+        </SpecialRoute>
         <Route path="*">
           <Empty />
         </Route>
