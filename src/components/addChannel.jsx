@@ -53,11 +53,12 @@ const AddChannel = () => {
                 id="name"
                 name="name"
                 type= "text"
+                autoFocus
                 onChange={formik.handleChange}
                 value={formik.values.name}
               />
             </FormGroup>
-            {invalid && <div>{t('errors.channelexists')}</div>}
+            {invalid && <div>{t('errors.channelExists')}</div>}
             <Button variant="primary" type="submit">
               {t('submit')}
             </Button>

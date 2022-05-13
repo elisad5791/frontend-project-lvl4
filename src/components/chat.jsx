@@ -53,7 +53,6 @@ const Chat = () => {
     });
     socket.on("removeChannel", ({ id }) => {
       dispatch(removeChannel(id));
-      dispatch(setActiveChannel(defaultChannelId));
       toast(t('channels.removed'), { type: 'success' });
     });
     socket.on("renameChannel", (channel) => {

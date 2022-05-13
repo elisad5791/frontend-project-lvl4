@@ -18,6 +18,11 @@ const Signup = () => {
   let history = useHistory();
   const dispatch = useDispatch();
 
+  const handleClick = (e) => {
+    e.preventDefault();
+    history.replace({ pathname: "/login" });
+  };
+
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -125,7 +130,7 @@ const Signup = () => {
         </Row>
       </Card.Body>
       <Card.Footer className="text-center">
-        <Button variant="outline-primary" size="sm" href="/login">{t('auth.enter')}</Button>
+        <Card.Link href="/login" onClick={handleClick}>{t('auth.enter')}</Card.Link>
       </Card.Footer>
     </Card>
   );

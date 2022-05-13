@@ -54,6 +54,7 @@ const RenameChannel = (props) => {
                 id="name"
                 name="name"
                 type= "text"
+                autoFocus
                 onChange={formik.handleChange}
                 value={formik.values.name}
               />

@@ -1,7 +1,7 @@
 import React, { createContext } from 'react';
-import ReactDOM from 'react-dom';
+
 import { I18nextProvider, initReactI18next } from 'react-i18next';
-import { io } from "socket.io-client";
+
 import { Provider } from 'react-redux';
 import i18next from 'i18next';
 import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
@@ -11,9 +11,7 @@ import translation from './locales/ru.js';
 
 const socketContext = createContext();
 
-const init = async () => {
-  const socket = io("ws://localhost:5000");
-
+const init = async (socket) => {
   const i18nextInstance = i18next.createInstance();
   await i18nextInstance
     .use(initReactI18next)
@@ -36,7 +34,7 @@ const init = async () => {
     environment: 'production',
   };
 
-  ReactDOM.render(
+  return (
     <RollbarProvider config={rollbarConfig}>
       <ErrorBoundary>
         <I18nextProvider i18n={i18nextInstance}>
@@ -47,8 +45,7 @@ const init = async () => {
           </socketContext.Provider>
         </I18nextProvider>
       </ErrorBoundary>
-    </RollbarProvider>,
-    document.getElementById('chat')
+    </RollbarProvider>
   );
 };
 

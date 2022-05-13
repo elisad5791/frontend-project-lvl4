@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useFormik } from 'formik';
-import * as Yup from 'yup';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -18,20 +17,16 @@ const Login = () => {
   let history = useHistory();
   const dispatch = useDispatch();
 
+  const handleClick = (e) => {
+    e.preventDefault();
+    history.replace({ pathname: "/signup" });
+  };
+
   const formik = useFormik({
     initialValues: {
       username: '',
       password: '',
     },
-    validationSchema: Yup.object({
-      username: Yup.string()
-        .max(20, t('errors.max20'))
-        .required(t('errors.required')),
-      password: Yup.string()
-        .min(5, t('errors.min5'))
-        .max(20, t('errors.max20'))
-        .required(t('errors.required')),
-    }),
     onSubmit: async (values) => {
       try {
         const { data } = await axios.post(routes.loginPath(), values);
@@ -70,11 +65,6 @@ const Login = () => {
                   onBlur={formik.handleBlur}
                   value={formik.values.username}
                 />
-                {formik.touched.username && formik.errors.username ? (
-                  <Form.Text className="text-danger">
-                    {formik.errors.username}
-                  </Form.Text>
-                ) : null}
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="password">
@@ -86,11 +76,6 @@ const Login = () => {
                   onBlur={formik.handleBlur}
                   value={formik.values.password}
                 />
-                {formik.touched.password && formik.errors.password ? (
-                  <Form.Text className="text-danger">
-                    {formik.errors.password}
-                  </Form.Text>
-                ) : null}
               </Form.Group>
 
               {invalid && <div className="text-danger mb-3">{t('errors.auth')}</div>}
@@ -104,7 +89,7 @@ const Login = () => {
         </Row>
       </Card.Body>
       <Card.Footer className="text-center">
-        <Button variant="outline-primary" size="sm" href="/signup">{t('auth.registration')}</Button>
+        <Card.Link href="/signup" onClick={handleClick}>{t('auth.registration')}</Card.Link>
       </Card.Footer>
     </Card>
   );
