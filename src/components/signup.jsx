@@ -130,7 +130,7 @@ const Signup = () => {
         </Row>
       </Card.Body>
       <Card.Footer className="text-center">
-        <Card.Link href="/login" onClick={handleClick}>{t('auth.enter')}</Card.Link>
+        <Card.Link href="/login" onClick={handleClick} className="text-decoration-none">{t('auth.enter')}</Card.Link>
       </Card.Footer>
     </Card>
   );

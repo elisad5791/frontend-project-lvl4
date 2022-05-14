@@ -3,11 +3,11 @@ import { useFormik } from 'formik';
 import { useSelector } from 'react-redux';
 import filter from 'leo-profanity';
 import { useTranslation } from 'react-i18next';
-import { InputGroup, FormControl, Button } from 'react-bootstrap';
+import { InputGroup, FormControl, Button, FormLabel } from 'react-bootstrap';
 import { socketContext } from '../init.jsx';
 
 const MessageForm = () => {
-  filter.loadDictionary('ru');
+  filter.loadDictionary();
   const { t } = useTranslation();
   const activeChannelId = useSelector((state) => state.app.activeChannel);
   const socket = useContext(socketContext);
@@ -29,6 +29,7 @@ const MessageForm = () => {
 
   return (
     <form onSubmit={formik.handleSubmit} className="p-3 border-top">
+      <FormLabel htmlFor="message" className="visually-hidden">{t('messages.new')}</FormLabel>
       <InputGroup>
         <FormControl
           id="message"
@@ -36,6 +37,7 @@ const MessageForm = () => {
           type="text"
           required
           autoFocus
+          placeholder={t('messages.newDots')}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.message}

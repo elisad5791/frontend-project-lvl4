@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { useFormik } from 'formik';
-import { Modal, FormGroup, FormControl, Button, Form } from 'react-bootstrap';
+import { Modal, FormGroup, FormControl, Button, Form, FormLabel } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { socketContext } from '../init.jsx';
@@ -48,6 +48,7 @@ const AddChannel = () => {
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={formik.handleSubmit}>
+            <FormLabel htmlFor="name" className="visually-hidden">{t('channels.name')}</FormLabel>
             <FormGroup className="mb-3">
               <FormControl 
                 id="name"

@@ -4,12 +4,13 @@ const translation = {
     addButton: 'Создать канал',
     addChannel: 'Добавить канал',
     created: 'Канал создан',
-    removed: 'Канал удален',
+    removed: 'Канал удалён',
     renamed: 'Канал переименован',
     removeButton: 'Удалить',
     removeChannel: 'Вы уверены, что хотите удалить канал?',
     renameButton: 'Переименовать',
     renameChannel: 'Переименовать канал',
+    control: 'Управление каналами',
   },
   errors: {
     required: 'Обязательное поле',
@@ -29,6 +30,8 @@ const translation = {
     message_few: '{{count}} сообщения',
     message_many: '{{count}} сообщений',
     send: 'Отправить',
+    new: 'Новое сообщение',
+    newDots: 'Новое сообщение...',
   },
   auth: {
     nik: 'Ваш ник',
@@ -42,6 +45,7 @@ const translation = {
   },
   submit: 'Отправить',
   yes: 'Да',
+  chat: 'Hexlet Chat',
 };
 
 export default translation;

@@ -89,7 +89,7 @@ const Login = () => {
         </Row>
       </Card.Body>
       <Card.Footer className="text-center">
-        <Card.Link href="/signup" onClick={handleClick}>{t('auth.registration')}</Card.Link>
+        <Card.Link href="/signup" onClick={handleClick} className="text-decoration-none">{t('auth.registration')}</Card.Link>
       </Card.Footer>
     </Card>
   );

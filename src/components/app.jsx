@@ -3,6 +3,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Link,
 } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Container, Navbar, Image } from 'react-bootstrap';
@@ -21,8 +22,10 @@ export default function App() {
     <Router>
       <Navbar bg="white" fixed="top" className="shadow-sm">
         <Container>
-          <Navbar.Brand href="/">Hexlet Chat</Navbar.Brand>
-          {isAuthorized && <a className="btn btn-primary" href="/logout">{t('auth.logout')}</a>}
+          <Navbar.Brand>
+            <Link to="/" className='text-reset text-decoration-none'>{t('chat')}</Link>
+          </Navbar.Brand>
+          {isAuthorized && <Link to="/logout" className="btn btn-primary">{t('auth.logout')}</Link>}
         </Container>
       </Navbar>  
 

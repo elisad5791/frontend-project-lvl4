@@ -5,8 +5,8 @@ import axios from 'axios';
 import { Container, Row, Col } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import routes from '../routes.js';
-import { addChannels, removeChannel, renameChannel } from '../slices/channelsSlice.js';
-import { addMessages } from '../slices/messagesSlice.js';
+import { addChannel, setChannels, removeChannel, renameChannel } from '../slices/channelsSlice.js';
+import { addMessage, setMessages } from '../slices/messagesSlice.js';
 import { setDefaultChannel, setActiveChannel, setAuthorized } from '../slices/appSlice.js';
 import { socketContext } from '../init.jsx';
 import Messages from './messages.jsx';
@@ -32,8 +32,8 @@ const Chat = () => {
         const headers = { Authorization: `Bearer ${userId.token}` };
         const { data } = await axios.get(routes.dataPath(), { headers });
         batch(() => {
-          dispatch(addChannels(data.channels));
-          dispatch(addMessages(data.messages));
+          dispatch(setChannels(data.channels));
+          dispatch(setMessages(data.messages));
           dispatch(setActiveChannel(data.currentChannelId));
           dispatch(setDefaultChannel(data.currentChannelId));
         });
@@ -44,10 +44,10 @@ const Chat = () => {
     getData();
     
     socket.on("newMessage", (message) => {
-      dispatch(addMessages([message]));
+      dispatch(addMessage(message));
     });
     socket.on("newChannel", (channel) => {
-      dispatch(addChannels([channel]));
+      dispatch(addChannel(channel));
       dispatch(setActiveChannel(channel.id));
       toast(t('channels.created'), { type: 'success' });
     });
