@@ -12,6 +12,7 @@ function Channels(props) {
   const { channels } = props;
   const activeChannel = useSelector((state) => state.app.activeChannel);
   const dispatch = useDispatch();
+  const buttonsBlocked = useSelector((state) => state.app.buttonsBlocked);
 
   const handleClick = (id) => () => {
     dispatch(setActiveChannel(id));
@@ -25,12 +26,12 @@ function Channels(props) {
         const variant = active ? 'primary' : 'secondary';
         return (
           <Dropdown as={ButtonGroup} className="w-100 mb-2" key={channel.id}>
-            <Button variant={variant} className="w-100 text-start" onClick={handleClick(channel.id)}>
+            <Button variant={variant} className="w-100 text-start" onClick={handleClick(channel.id)} disabled={buttonsBlocked}>
               #
               {' '}
               {channel.name}
             </Button>
-            { channel.removable && <Dropdown.Toggle split variant={variant} title={t('channels.control')} /> }
+            { channel.removable && <Dropdown.Toggle split variant={variant} title={t('channels.control')} disabled={buttonsBlocked} /> }
             { channel.removable
               && (
               <Dropdown.Menu variant="light">

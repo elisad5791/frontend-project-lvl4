@@ -8,8 +8,8 @@ import { useTranslation } from 'react-i18next';
 import {
   Form, Button, Card, Image, Row, Col,
 } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
-import { setAuthorized } from '../slices/appSlice.js';
+import { useDispatch, useSelector } from 'react-redux';
+import { setAuthorized, setButtonsBlocked } from '../slices/appSlice.js';
 import routes from '../routes.js';
 import imgLogin from '../../assets/chat.png';
 
@@ -18,6 +18,7 @@ function Login() {
   const [invalid, setInvalid] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
+  const buttonsBlocked = useSelector((state) => state.app.buttonsBlocked);
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -30,6 +31,7 @@ function Login() {
       password: '',
     },
     onSubmit: async (values) => {
+      dispatch(setButtonsBlocked(true));
       try {
         const { data } = await axios.post(routes.loginPath(), values);
         const authToken = { token: data.token };
@@ -46,6 +48,7 @@ function Login() {
           toast(t('errors.network'), { type: 'error' });
         }
       }
+      dispatch(setButtonsBlocked(false));
     },
   });
   return (
@@ -82,7 +85,7 @@ function Login() {
 
               {invalid && <div className="text-danger mb-3">{t('errors.auth')}</div>}
 
-              <Button variant="primary" type="submit">
+              <Button variant="primary" type="submit" disabled={buttonsBlocked}>
                 {t('auth.enter')}
               </Button>
               <ToastContainer />

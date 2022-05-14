@@ -9,7 +9,9 @@ import {
   addChannel, setChannels, removeChannel, renameChannel,
 } from '../slices/channelsSlice.js';
 import { addMessage, setMessages } from '../slices/messagesSlice.js';
-import { setDefaultChannel, setActiveChannel, setAuthorized } from '../slices/appSlice.js';
+import {
+  setDefaultChannel, setActiveChannel, setAuthorized, setButtonsBlocked,
+} from '../slices/appSlice.js';
 import socketContext from '../contexts/context.jsx';
 import Messages from './messages.jsx';
 import Channels from './channels.jsx';
@@ -29,6 +31,7 @@ function Chat() {
     dispatch(setAuthorized(true));
 
     const getData = async () => {
+      dispatch(setButtonsBlocked(true));
       try {
         const userId = JSON.parse(localStorage.getItem('userId'));
         const headers = { Authorization: `Bearer ${userId.token}` };
@@ -42,6 +45,7 @@ function Chat() {
       } catch (e) {
         toast(t('errors.network'), { type: 'error' });
       }
+      dispatch(setButtonsBlocked(false));
     };
     getData();
 

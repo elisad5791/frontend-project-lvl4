@@ -6,11 +6,11 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Form, Button, Card, Image, Row, Col,
 } from 'react-bootstrap';
-import { setAuthorized } from '../slices/appSlice.js';
+import { setAuthorized, setButtonsBlocked } from '../slices/appSlice.js';
 import routes from '../routes.js';
 import imgSignup from '../../assets/auth.png';
 
@@ -19,6 +19,7 @@ function Signup() {
   const [invalid, setInvalid] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
+  const buttonsBlocked = useSelector((state) => state.app.buttonsBlocked);
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -44,6 +45,7 @@ function Signup() {
         .oneOf([Yup.ref('password'), null], t('errors.confirmation')),
     }),
     onSubmit: async (values) => {
+      dispatch(setButtonsBlocked(true));
       try {
         const { data } = await axios.post(routes.signupPath(), values);
         const authToken = { token: data.token };
@@ -60,6 +62,7 @@ function Signup() {
           toast(t('errors.network'), { type: 'error' });
         }
       }
+      dispatch(setButtonsBlocked(false));
     },
   });
 
@@ -123,7 +126,7 @@ function Signup() {
 
               {invalid && <div className="text-danger mb-3">{t('errors.userExists')}</div>}
 
-              <Button variant="primary" type="submit">
+              <Button variant="primary" type="submit" disabled={buttonsBlocked}>
                 {t('auth.register')}
               </Button>
               <ToastContainer />
