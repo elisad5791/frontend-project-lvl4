@@ -1,5 +1,6 @@
 const translation = {
   channels: {
+    name: 'Имя канала',
     title: 'Каналы',
     addButton: 'Создать канал',
     addChannel: 'Добавить канал',
