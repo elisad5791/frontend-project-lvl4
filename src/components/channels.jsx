@@ -28,7 +28,7 @@ const Channels = (props) => {
             <Button variant={variant} className="w-100 text-start" onClick={handleClick(channel.id)}>
               # {channel.name}
             </Button>
-            { channel.removable && <Dropdown.Toggle split variant={variant} title={t(channels.control)} /> }
+            { channel.removable && <Dropdown.Toggle split variant={variant} title={t('channels.control')} /> }
             { channel.removable &&  
               <Dropdown.Menu variant="light">
                 <RemoveChannel id={channel.id} />
