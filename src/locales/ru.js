@@ -11,7 +11,7 @@ const translation = {
     removeChannel: 'Вы уверены, что хотите удалить канал?',
     renameButton: 'Переименовать',
     renameChannel: 'Переименовать канал',
-    control: 'Управление каналами',
+    control: 'Управление каналом',
   },
   errors: {
     required: 'Обязательное поле',
