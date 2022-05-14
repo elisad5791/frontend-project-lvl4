@@ -5,21 +5,23 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useTranslation } from 'react-i18next';
-import { Form, Button, Card, Image, Row, Col } from 'react-bootstrap';
+import {
+  Form, Button, Card, Image, Row, Col,
+} from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { setAuthorized } from '../slices/appSlice.js';
 import routes from '../routes.js';
 import imgLogin from '../../assets/chat.png';
 
-const Login = () => {
+function Login() {
   const { t } = useTranslation();
   const [invalid, setInvalid] = useState(false);
-  let history = useHistory();
+  const history = useHistory();
   const dispatch = useDispatch();
 
   const handleClick = (e) => {
     e.preventDefault();
-    history.replace({ pathname: "/signup" });
+    history.replace({ pathname: '/signup' });
   };
 
   const formik = useFormik({
@@ -35,7 +37,7 @@ const Login = () => {
         localStorage.setItem('username', values.username);
         setInvalid(false);
         dispatch(setAuthorized(true));
-        history.replace({ pathname: "/" });
+        history.replace({ pathname: '/' });
       } catch (e) {
         if (e.response.status === 401) {
           localStorage.clear();
@@ -59,7 +61,7 @@ const Login = () => {
               <Form.Group className="mb-3" controlId="username">
                 <Form.Label>{t('auth.nik')}</Form.Label>
                 <Form.Control
-                  name = "username"
+                  name="username"
                   type="text"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -69,7 +71,7 @@ const Login = () => {
 
               <Form.Group className="mb-3" controlId="password">
                 <Form.Label>{t('auth.password')}</Form.Label>
-                <Form.Control 
+                <Form.Control
                   name="password"
                   type="password"
                   onChange={formik.handleChange}
@@ -93,6 +95,6 @@ const Login = () => {
       </Card.Footer>
     </Card>
   );
-};
+}
 
 export default Login;

@@ -1,11 +1,13 @@
 import React, { useState, useContext } from 'react';
 import { useFormik } from 'formik';
-import { Modal, FormGroup, FormControl, Button, Form, Dropdown, FormLabel } from 'react-bootstrap';
+import {
+  Modal, FormGroup, FormControl, Button, Form, Dropdown, FormLabel,
+} from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { socketContext } from '../init.jsx';
+import socketContext from '../contexts/context.jsx';
 
-const RenameChannel = (props) => {
+function RenameChannel(props) {
   const { t } = useTranslation();
   const { channel } = props;
   const socket = useContext(socketContext);
@@ -26,9 +28,9 @@ const RenameChannel = (props) => {
         setInvalid(true);
       } else {
         socket.emit(
-          "renameChannel",
+          'renameChannel',
           { id: channel.id, name: values.name },
-          (response) => {console.log(`rename channel - ${response.status}`);}
+          (response) => { console.log(`rename channel - ${response.status}`); },
         );
         values.name = '';
         setInvalid(false);
@@ -51,10 +53,10 @@ const RenameChannel = (props) => {
           <Form onSubmit={formik.handleSubmit}>
             <FormLabel htmlFor="name" className="visually-hidden">{t('channels.name')}</FormLabel>
             <FormGroup className="mb-3">
-              <FormControl 
+              <FormControl
                 id="name"
                 name="name"
-                type= "text"
+                type="text"
                 autoFocus
                 onChange={formik.handleChange}
                 value={formik.values.name}
@@ -69,6 +71,6 @@ const RenameChannel = (props) => {
       </Modal>
     </>
   );
-};
+}
 
 export default RenameChannel;

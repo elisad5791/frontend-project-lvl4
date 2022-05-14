@@ -3,10 +3,12 @@ import { useFormik } from 'formik';
 import { useSelector } from 'react-redux';
 import filter from 'leo-profanity';
 import { useTranslation } from 'react-i18next';
-import { InputGroup, FormControl, Button, FormLabel } from 'react-bootstrap';
-import { socketContext } from '../init.jsx';
+import {
+  InputGroup, FormControl, Button, FormLabel,
+} from 'react-bootstrap';
+import socketContext from '../contexts/context.jsx';
 
-const MessageForm = () => {
+function MessageForm() {
   filter.loadDictionary();
   const { t } = useTranslation();
   const activeChannelId = useSelector((state) => state.app.activeChannel);
@@ -21,9 +23,10 @@ const MessageForm = () => {
       const text = filter.clean(values.message);
       values.message = '';
       socket.emit(
-        "newMessage",
+        'newMessage',
         { username, text, channelId: activeChannelId },
-        (response) => {console.log(`new message - ${response.status}`);});
+        (response) => { console.log(`new message - ${response.status}`); },
+      );
     },
   });
 
@@ -49,6 +52,6 @@ const MessageForm = () => {
       </InputGroup>
     </form>
   );
-};
+}
 
 export default MessageForm;

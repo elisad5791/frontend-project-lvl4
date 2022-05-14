@@ -7,7 +7,7 @@ import AddChannel from './addChannel.jsx';
 import RemoveChannel from './removeChannel.jsx';
 import RenameChannel from './renameChannel.jsx';
 
-const Channels = (props) => {
+function Channels(props) {
   const { t } = useTranslation();
   const { channels } = props;
   const activeChannel = useSelector((state) => state.app.activeChannel);
@@ -22,24 +22,27 @@ const Channels = (props) => {
       <AddChannel />
       {channels.map((channel) => {
         const active = channel.id === activeChannel;
-        const variant = active ? "primary" : "secondary";
+        const variant = active ? 'primary' : 'secondary';
         return (
           <Dropdown as={ButtonGroup} className="w-100 mb-2" key={channel.id}>
             <Button variant={variant} className="w-100 text-start" onClick={handleClick(channel.id)}>
-              # {channel.name}
+              #
+              {' '}
+              {channel.name}
             </Button>
             { channel.removable && <Dropdown.Toggle split variant={variant} title={t('channels.control')} /> }
-            { channel.removable &&  
+            { channel.removable
+              && (
               <Dropdown.Menu variant="light">
                 <RemoveChannel id={channel.id} />
                 <RenameChannel channel={channel} />
               </Dropdown.Menu>
-            }
+              )}
           </Dropdown>
         );
       })}
     </>
   );
-};
+}
 
 export default Channels;

@@ -1,27 +1,24 @@
-import React, { createContext } from 'react';
-
+import React from 'react';
 import { I18nextProvider, initReactI18next } from 'react-i18next';
-
 import { Provider } from 'react-redux';
 import i18next from 'i18next';
 import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import store from './store/store.js';
 import App from './components/app.jsx';
 import translation from './locales/ru.js';
-
-const socketContext = createContext();
+import socketContext from './contexts/context.jsx';
 
 const init = async (socket) => {
   const i18nextInstance = i18next.createInstance();
   await i18nextInstance
     .use(initReactI18next)
     .init({
-      lng: 'ru', 
+      lng: 'ru',
       interpolation: {
         escapeValue: false,
       },
       resources: {
-        ru: { 
+        ru: {
           translation,
         },
       },
@@ -49,5 +46,4 @@ const init = async (socket) => {
   );
 };
 
-export { socketContext };
 export default init;

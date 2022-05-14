@@ -1,11 +1,13 @@
 import React, { useState, useContext } from 'react';
 import { useFormik } from 'formik';
-import { Modal, FormGroup, FormControl, Button, Form, FormLabel } from 'react-bootstrap';
+import {
+  Modal, FormGroup, FormControl, Button, Form, FormLabel,
+} from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { socketContext } from '../init.jsx';
+import socketContext from '../contexts/context.jsx';
 
-const AddChannel = () => {
+function AddChannel() {
   const { t } = useTranslation();
   const socket = useContext(socketContext);
   const channels = useSelector((state) => state.channels.value);
@@ -19,15 +21,15 @@ const AddChannel = () => {
     initialValues: {
       name: '',
     },
-    onSubmit: values => {
+    onSubmit: (values) => {
       const index = channels.findIndex((channel) => channel.name === values.name);
       if (index > -1) {
         setInvalid(true);
       } else {
         socket.emit(
-          "newChannel",
+          'newChannel',
           values,
-          (response) => {console.log(`new channel - ${response.status}`);}
+          (response) => { console.log(`new channel - ${response.status}`); },
         );
         values.name = '';
         setInvalid(false);
@@ -50,10 +52,10 @@ const AddChannel = () => {
           <Form onSubmit={formik.handleSubmit}>
             <FormLabel htmlFor="name" className="visually-hidden">{t('channels.name')}</FormLabel>
             <FormGroup className="mb-3">
-              <FormControl 
+              <FormControl
                 id="name"
                 name="name"
-                type= "text"
+                type="text"
                 autoFocus
                 onChange={formik.handleChange}
                 value={formik.values.name}
@@ -68,6 +70,6 @@ const AddChannel = () => {
       </Modal>
     </>
   );
-};
+}
 
 export default AddChannel;

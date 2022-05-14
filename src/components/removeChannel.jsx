@@ -1,11 +1,13 @@
 import React, { useState, useContext } from 'react';
-import { Modal, Button, Form, Dropdown } from 'react-bootstrap';
+import {
+  Modal, Button, Form, Dropdown,
+} from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { setActiveChannel } from '../slices/appSlice.js';
 import { useTranslation } from 'react-i18next';
-import { socketContext } from '../init.jsx';
+import { setActiveChannel } from '../slices/appSlice.js';
+import socketContext from '../contexts/context.jsx';
 
-const RemoveChannel = (props) => {
+function RemoveChannel(props) {
   const dispatch = useDispatch();
   const defaultChannelId = useSelector((state) => state.app.defaultChannel);
   const { t } = useTranslation();
@@ -19,14 +21,14 @@ const RemoveChannel = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     socket.emit(
-      "removeChannel",
+      'removeChannel',
       { id },
-      (response) => {console.log(`remove channel - ${response.status}`);}
+      (response) => { console.log(`remove channel - ${response.status}`); },
     );
     dispatch(setActiveChannel(defaultChannelId));
     handleClose();
   };
-  
+
   return (
     <>
       <Dropdown.Item onClick={handleShow}>
@@ -47,6 +49,6 @@ const RemoveChannel = (props) => {
       </Modal>
     </>
   );
-};
+}
 
 export default RemoveChannel;

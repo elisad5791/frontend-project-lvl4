@@ -7,20 +7,22 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import { Form, Button, Card, Image, Row, Col } from 'react-bootstrap';
+import {
+  Form, Button, Card, Image, Row, Col,
+} from 'react-bootstrap';
 import { setAuthorized } from '../slices/appSlice.js';
 import routes from '../routes.js';
 import imgSignup from '../../assets/auth.png';
 
-const Signup = () => {
+function Signup() {
   const { t } = useTranslation();
   const [invalid, setInvalid] = useState(false);
-  let history = useHistory();
+  const history = useHistory();
   const dispatch = useDispatch();
 
   const handleClick = (e) => {
     e.preventDefault();
-    history.replace({ pathname: "/login" });
+    history.replace({ pathname: '/login' });
   };
 
   const formik = useFormik({
@@ -49,7 +51,7 @@ const Signup = () => {
         localStorage.setItem('username', values.username);
         setInvalid(false);
         dispatch(setAuthorized(true));
-        history.replace({ pathname: "/" });
+        history.replace({ pathname: '/' });
       } catch (e) {
         if (e.response.status === 409) {
           localStorage.clear();
@@ -60,7 +62,7 @@ const Signup = () => {
       }
     },
   });
-  
+
   return (
     <Card style={{ width: '40rem' }} className="position-absolute top-50 start-50 translate-middle">
       <Card.Header as="h2">{t('auth.registration')}</Card.Header>
@@ -74,7 +76,7 @@ const Signup = () => {
               <Form.Group className="mb-3" controlId="username">
                 <Form.Label>{t('auth.username')}</Form.Label>
                 <Form.Control
-                  name = "username"
+                  name="username"
                   type="text"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -89,7 +91,7 @@ const Signup = () => {
 
               <Form.Group className="mb-3" controlId="password">
                 <Form.Label>{t('auth.password')}</Form.Label>
-                <Form.Control 
+                <Form.Control
                   name="password"
                   type="password"
                   onChange={formik.handleChange}
@@ -105,7 +107,7 @@ const Signup = () => {
 
               <Form.Group className="mb-3" controlId="password_confirmation">
                 <Form.Label>{t('auth.confirmation')}</Form.Label>
-                <Form.Control 
+                <Form.Control
                   name="password_confirmation"
                   type="password"
                   onChange={formik.handleChange}
@@ -134,6 +136,6 @@ const Signup = () => {
       </Card.Footer>
     </Card>
   );
-};
+}
 
 export default Signup;

@@ -23,11 +23,11 @@ export default function App() {
       <Navbar bg="white" fixed="top" className="shadow-sm">
         <Container>
           <Navbar.Brand>
-            <Link to="/" className='text-reset text-decoration-none'>{t('chat')}</Link>
+            <Link to="/" className="text-reset text-decoration-none">{t('chat')}</Link>
           </Navbar.Brand>
           {isAuthorized && <Link to="/logout" className="btn btn-primary">{t('auth.logout')}</Link>}
         </Container>
-      </Navbar>  
+      </Navbar>
 
       <Switch>
         <Route path="/login">
