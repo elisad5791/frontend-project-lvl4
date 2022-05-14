@@ -18,7 +18,7 @@
 
 ### Запуск на выполнение
 
-    make start
+    make start # откройте http://localhost:5000
 
 ### Приложение
 
