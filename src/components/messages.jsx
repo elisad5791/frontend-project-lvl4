@@ -10,12 +10,12 @@ function Messages(props) {
 
   return (
     <div className="bg-white p-3 flex-grow-1 overflow-auto" id="messages">
-      {messages.map((message) => (
-        <p key={message.id}>
-          <b>{message.username}</b>
+      {messages.map(({ id, username, text }) => (
+        <p key={id}>
+          <b>{username}</b>
           :
           {' '}
-          {message.text}
+          {text}
         </p>
       ))}
     </div>

@@ -9,19 +9,19 @@ const channelsSlice = createSlice({
   name: 'channels',
   initialState,
   reducers: {
-    setChannels: (state, action) => {
-      state.value = action.payload;
+    setChannels: (state, { payload }) => {
+      state.value = payload;
     },
-    addChannel: (state, action) => {
-      state.value.push(action.payload);
+    addChannel: (state, { payload }) => {
+      state.value.push(payload);
     },
-    removeChannel: (state, action) => {
-      const index = state.value.findIndex((channel) => channel.id === action.payload);
+    removeChannel: (state, { payload }) => {
+      const index = state.value.findIndex((channel) => channel.id === payload);
       if (index !== -1) state.value.splice(index, 1);
     },
-    renameChannel: (state, action) => {
-      const index = state.value.findIndex((channel) => channel.id === action.payload.id);
-      if (index !== -1) state.value[index] = action.payload;
+    renameChannel: (state, { payload }) => {
+      const index = state.value.findIndex((channel) => channel.id === payload.id);
+      if (index !== -1) state.value[index] = payload;
     },
   },
 });

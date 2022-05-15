@@ -22,20 +22,21 @@ function Channels(props) {
     <>
       <AddChannel />
       {channels.map((channel) => {
-        const active = channel.id === activeChannel;
+        const { id, name, removable } = channel;
+        const active = id === activeChannel;
         const variant = active ? 'primary' : 'secondary';
         return (
-          <Dropdown as={ButtonGroup} className="w-100 mb-2" key={channel.id}>
-            <Button variant={variant} className="w-100 text-start" onClick={handleClick(channel.id)} disabled={buttonsBlocked}>
+          <Dropdown as={ButtonGroup} className="w-100 mb-2" key={id}>
+            <Button variant={variant} className="w-100 text-start" onClick={handleClick(id)} disabled={buttonsBlocked}>
               #
               {' '}
-              {channel.name}
+              {name}
             </Button>
-            { channel.removable && <Dropdown.Toggle split variant={variant} title={t('channels.control')} disabled={buttonsBlocked} /> }
-            { channel.removable
+            { removable && <Dropdown.Toggle split variant={variant} title={t('channels.control')} disabled={buttonsBlocked} /> }
+            { removable
               && (
               <Dropdown.Menu variant="light">
-                <RemoveChannel id={channel.id} />
+                <RemoveChannel id={id} />
                 <RenameChannel channel={channel} />
               </Dropdown.Menu>
               )}

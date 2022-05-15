@@ -16,7 +16,6 @@ const translation = {
   errors: {
     required: 'Обязательное поле',
     network: 'Ошибка соединения',
-    min5: 'Не менее 5 символов',
     min3: 'От 3 до 20 символов',
     min6: 'Не менее 6 символов',
     max20: 'От 3 до 20 символов',
@@ -45,7 +44,6 @@ const translation = {
     register: 'Зарегистрироваться',
   },
   submit: 'Отправить',
-  yes: 'Да',
   chat: 'Hexlet Chat',
 };
 

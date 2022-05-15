@@ -13,20 +13,20 @@ const appSlice = createSlice({
   name: 'app',
   initialState,
   reducers: {
-    setActiveChannel: (state, action) => {
-      state.activeChannel = action.payload;
+    setActiveChannel: (state, { payload }) => {
+      state.activeChannel = payload;
     },
-    setDefaultChannel: (state, action) => {
-      state.defaultChannel = action.payload;
+    setDefaultChannel: (state, { payload }) => {
+      state.defaultChannel = payload;
     },
-    setShowModal: (state, action) => {
-      state.showModal = action.payload;
+    setShowModal: (state, { payload }) => {
+      state.showModal = payload;
     },
-    setButtonsBlocked: (state, action) => {
-      state.buttonsBlocked = action.payload;
+    setButtonsBlocked: (state, { payload }) => {
+      state.buttonsBlocked = payload;
     },
-    setAuthorized: (state, action) => {
-      state.isAuthorized = action.payload;
+    setAuthorized: (state, { payload }) => {
+      state.isAuthorized = payload;
     },
   },
 });
