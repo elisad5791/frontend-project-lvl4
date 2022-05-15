@@ -1,18 +1,15 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector, batch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { Container, Row, Col } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import routes from '../routes.js';
-import {
-  addChannel, setChannels, removeChannel, renameChannel,
-} from '../slices/channelsSlice.js';
-import { addMessage, setMessages } from '../slices/messagesSlice.js';
+import { setChannels } from '../slices/channelsSlice.js';
+import { setMessages } from '../slices/messagesSlice.js';
 import {
   setDefaultChannel, setActiveChannel, setAuthorized, setButtonsBlocked,
 } from '../slices/appSlice.js';
-import socketContext from '../contexts/context.jsx';
 import Messages from './messages.jsx';
 import Channels from './channels.jsx';
 import ChannelInfo from './channelInfo.jsx';
@@ -21,7 +18,6 @@ import MessageForm from './messageForm.jsx';
 function Chat() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const socket = useContext(socketContext);
   const channels = useSelector((state) => state.channels.value);
   const activeChannelId = useSelector((state) => state.app.activeChannel);
   const messages = useSelector((state) => state.messages.value
@@ -48,23 +44,6 @@ function Chat() {
       dispatch(setButtonsBlocked(false));
     };
     getData();
-
-    socket.on('newMessage', (message) => {
-      dispatch(addMessage(message));
-    });
-    socket.on('newChannel', (channel) => {
-      dispatch(addChannel(channel));
-      dispatch(setActiveChannel(channel.id));
-      toast(t('channels.created'), { type: 'success' });
-    });
-    socket.on('removeChannel', ({ id }) => {
-      dispatch(removeChannel(id));
-      toast(t('channels.removed'), { type: 'success' });
-    });
-    socket.on('renameChannel', (channel) => {
-      dispatch(renameChannel(channel));
-      toast(t('channels.renamed'), { type: 'success' });
-    });
   }, []);
 
   return (
