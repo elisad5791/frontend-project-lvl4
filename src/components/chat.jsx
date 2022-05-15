@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector, batch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { Container, Row, Col } from 'react-bootstrap';
@@ -16,6 +17,7 @@ import ChannelInfo from './channelInfo.jsx';
 import MessageForm from './messageForm.jsx';
 
 function Chat() {
+  const history = useHistory();
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const channels = useSelector((state) => state.channels.value);
@@ -39,7 +41,12 @@ function Chat() {
           dispatch(setDefaultChannel(data.currentChannelId));
         });
       } catch (e) {
-        toast(t('errors.network'), { type: 'error' });
+        if (e.response.status === 401) {
+          localStorage.clear();
+          history.replace({ pathname: '/login' });
+        } else {
+          toast(t('errors.network'), { type: 'error' });
+        }
       }
       dispatch(setButtonsBlocked(false));
     };
