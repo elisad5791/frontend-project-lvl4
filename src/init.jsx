@@ -30,7 +30,7 @@ const init = async (socket) => {
   const connection = socketInit(socket, i18nextInstance.t);
 
   const rollbarConfig = {
-    accessToken: 'f9aa7a47f9294f85ac8e430a09a38edf',
+    accessToken: process.env.ROLLBAR_ACCESS_TOKEN,
     captureUncaught: true,
     captureUnhandledRejections: true,
     environment: 'production',
