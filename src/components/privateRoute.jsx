@@ -1,14 +1,13 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import routes from '../routes.js';
-import authContext from '../contexts/authContext.jsx';
+import { useSelector } from 'react-redux';
 
 function PrivateRoute({ children }) {
-  const auth = useContext(authContext);
-  const userId = auth.getUserId();
+  const isAuthenticated = useSelector((state) => state.app.isAuthenticated);
   return (
     <Route
-      render={() => (userId ? (children) : <Redirect to={{ pathname: routes.loginPagePath() }} />)}
+      render={() => (isAuthenticated ? (children) : <Redirect to={{ pathname: routes.loginPagePath() }} />)}
     />
   );
 }
