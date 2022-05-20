@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useFormik } from 'formik';
-import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useTranslation } from 'react-i18next';
@@ -9,12 +8,13 @@ import {
   Form, Button, Card, Image, Row, Col,
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { setAuthorized, setButtonsBlocked } from '../slices/appSlice.js';
-import routes from '../routes.js';
+import { setButtonsBlocked } from '../slices/appSlice.js';
 import imgLogin from '../../assets/chat.png';
+import authContext from '../contexts/authContext.jsx';
 
 function Login() {
   const { t } = useTranslation();
+  const auth = useContext(authContext);
   const [invalid, setInvalid] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -33,12 +33,8 @@ function Login() {
     onSubmit: async (values) => {
       dispatch(setButtonsBlocked(true));
       try {
-        const { data } = await axios.post(routes.loginPath(), values);
-        const authToken = { token: data.token };
-        localStorage.setItem('userId', JSON.stringify(authToken));
-        localStorage.setItem('username', values.username);
+        await auth.login(values);
         setInvalid(false);
-        dispatch(setAuthorized(true));
         history.replace({ pathname: '/' });
       } catch (e) {
         if (e.response.status === 401) {

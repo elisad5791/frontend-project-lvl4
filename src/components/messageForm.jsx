@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import {
   InputGroup, FormControl, Button, FormLabel,
 } from 'react-bootstrap';
-import socketContext from '../contexts/context.jsx';
+import socketContext from '../contexts/socketContext.jsx';
 
 function MessageForm() {
   filter.loadDictionary();

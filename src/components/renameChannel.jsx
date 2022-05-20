@@ -6,7 +6,7 @@ import {
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import socketContext from '../contexts/context.jsx';
+import socketContext from '../contexts/socketContext.jsx';
 
 function RenameChannel(props) {
   const { t } = useTranslation();

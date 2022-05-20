@@ -5,7 +5,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { setActiveChannel } from '../slices/appSlice.js';
-import socketContext from '../contexts/context.jsx';
+import socketContext from '../contexts/socketContext.jsx';
 
 function RemoveChannel(props) {
   const dispatch = useDispatch();
