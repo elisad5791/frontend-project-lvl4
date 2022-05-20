@@ -41,12 +41,9 @@ function Chat() {
           dispatch(setDefaultChannel(data.currentChannelId));
         });
       } catch (e) {
-        if (e.response.status === 401) {
-          auth.logout();
-          history.replace({ pathname: routes.loginPagePath() });
-        } else {
-          toast(t('errors.network'), { type: 'error' });
-        }
+        toast(t('errors.network'), { type: 'error' });
+        auth.logout();
+        history.replace({ pathname: routes.loginPagePath() });
       }
       dispatch(setButtonsBlocked(false));
     };
