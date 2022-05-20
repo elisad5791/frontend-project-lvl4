@@ -1,25 +1,34 @@
 import axios from 'axios';
-import store from './store/store.js';
-import { setAuthorized } from './slices/appSlice.js';
 import routes from './routes.js';
+import store from './store/store.js';
+import { setAuthenticated } from './slices/appSlice.js';
 
 const auth = {
-  isAuthenticated: false,
   async login(userData) {
     const { data } = await axios.post(routes.loginPath(), userData);
     const authToken = { token: data.token };
     localStorage.setItem('userId', JSON.stringify(authToken));
     localStorage.setItem('username', userData.username);
-    store.dispatch(setAuthorized(true));
-  },
-  logout() {
+    store.dispatch(setAuthenticated(true));
   },
   async signup(userData) {
     const { data } = await axios.post(routes.signupPath(), userData);
     const authToken = { token: data.token };
     localStorage.setItem('userId', JSON.stringify(authToken));
     localStorage.setItem('username', userData.username);
-    store.dispatch(setAuthorized(true));
+    store.dispatch(setAuthenticated(true));
+  },
+  logout() {
+    localStorage.clear();
+    store.dispatch(setAuthenticated(false));
+  },
+  getToken() {
+    const userId = JSON.parse(localStorage.getItem('userId'));
+    return userId.token;
+  },
+  getUsername() {
+    const username = localStorage.getItem('username');
+    return username;
   },
 };
 

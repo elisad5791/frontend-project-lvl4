@@ -1,13 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Redirect } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { setAuthorized } from '../slices/appSlice.js';
 import routes from '../routes.js';
+import authContext from '../contexts/authContext.jsx';
 
 function Logout() {
-  const dispatch = useDispatch();
-  localStorage.clear();
-  dispatch(setAuthorized(false));
+  const auth = useContext(authContext);
+  auth.logout();
 
   return (
     <Redirect to={{ pathname: routes.loginPagePath() }} />

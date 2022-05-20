@@ -9,7 +9,7 @@ import routes from '../routes.js';
 import { setChannels } from '../slices/channelsSlice.js';
 import { setMessages } from '../slices/messagesSlice.js';
 import {
-  setDefaultChannel, setActiveChannel, setAuthorized, setButtonsBlocked,
+  setDefaultChannel, setActiveChannel, setButtonsBlocked,
 } from '../slices/appSlice.js';
 import Messages from './messages.jsx';
 import Channels from './channels.jsx';
@@ -26,8 +26,6 @@ function Chat() {
     .filter((item) => item.channelId === activeChannelId));
 
   useEffect(() => {
-    dispatch(setAuthorized(true));
-
     const getData = async () => {
       dispatch(setButtonsBlocked(true));
       try {

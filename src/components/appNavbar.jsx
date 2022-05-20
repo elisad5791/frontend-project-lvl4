@@ -7,14 +7,14 @@ import routes from '../routes.js';
 
 export default function AppNavbar() {
   const { t } = useTranslation();
-  const isAuthorized = useSelector((state) => state.app.isAuthorized);
+  const isAuthenticated = useSelector((state) => state.app.isAuthenticated);
   return (
     <Navbar bg="white" fixed="top" className="shadow-sm">
       <Container>
         <Navbar.Brand>
           <Link to={routes.chatPagePath()} className="text-reset text-decoration-none">{t('chat')}</Link>
         </Navbar.Brand>
-        {isAuthorized && <Link to={routes.logoutPath()} className="btn btn-primary">{t('auth.logout')}</Link>}
+        {isAuthenticated && <Link to={routes.logoutPath()} className="btn btn-primary">{t('auth.logout')}</Link>}
       </Container>
     </Navbar>
   );
