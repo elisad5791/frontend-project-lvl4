@@ -3,45 +3,36 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
 } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Container, Navbar, Image } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
-import SpecialRoute from './specialRoute.jsx';
+import { Image } from 'react-bootstrap';
+import PrivateRoute from './privateRoute.jsx';
 import Login from './login.jsx';
 import Logout from './logout.jsx';
 import Signup from './signup.jsx';
 import Chat from './chat.jsx';
+import AppNavbar from './appNavbar.jsx';
 import img404 from '../../assets/eyes.png';
+import routes from '../routes.js';
 
 export default function App() {
-  const { t } = useTranslation();
-  const isAuthorized = useSelector((state) => state.app.isAuthorized);
   return (
     <Router>
-      <Navbar bg="white" fixed="top" className="shadow-sm">
-        <Container>
-          <Navbar.Brand>
-            <Link to="/" className="text-reset text-decoration-none">{t('chat')}</Link>
-          </Navbar.Brand>
-          {isAuthorized && <Link to="/logout" className="btn btn-primary">{t('auth.logout')}</Link>}
-        </Container>
-      </Navbar>
+      <AppNavbar />
 
       <Switch>
-        <Route path="/login">
+        <Route path={routes.loginPagePath()}>
           <Login />
         </Route>
-        <Route path="/logout">
+        <Route path={routes.logoutPath()}>
           <Logout />
         </Route>
-        <Route path="/signup">
+        <Route path={routes.signupPagePath()}>
           <Signup />
         </Route>
-        <SpecialRoute exact path="/">
+        <PrivateRoute exact path={routes.chatPagePath()}>
           <Chat />
-        </SpecialRoute>
+        </PrivateRoute>
         <Route path="*">
           <Empty />
         </Route>
