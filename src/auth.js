@@ -26,6 +26,10 @@ const auth = {
     const userId = JSON.parse(localStorage.getItem('userId'));
     return userId.token;
   },
+  getUserId() {
+    const userId = JSON.parse(localStorage.getItem('userId'));
+    return userId;
+  },
   getUsername() {
     const username = localStorage.getItem('username');
     return username;
