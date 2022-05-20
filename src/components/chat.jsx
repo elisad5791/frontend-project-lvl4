@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useDispatch, useSelector, batch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -15,10 +15,12 @@ import Messages from './messages.jsx';
 import Channels from './channels.jsx';
 import ChannelInfo from './channelInfo.jsx';
 import MessageForm from './messageForm.jsx';
+import authContext from '../contexts/authContext.jsx';
 
 function Chat() {
   const history = useHistory();
   const dispatch = useDispatch();
+  const auth = useContext(authContext);
   const { t } = useTranslation();
   const channels = useSelector((state) => state.channels.value);
   const activeChannelId = useSelector((state) => state.app.activeChannel);
@@ -29,8 +31,8 @@ function Chat() {
     const getData = async () => {
       dispatch(setButtonsBlocked(true));
       try {
-        const userId = JSON.parse(localStorage.getItem('userId'));
-        const headers = { Authorization: `Bearer ${userId.token}` };
+        const token = auth.getToken();
+        const headers = { Authorization: `Bearer ${token}` };
         const { data } = await axios.get(routes.dataPath(), { headers });
         batch(() => {
           dispatch(setChannels(data.channels));
@@ -40,7 +42,7 @@ function Chat() {
         });
       } catch (e) {
         if (e.response.status === 401) {
-          localStorage.clear();
+          auth.logout();
           history.replace({ pathname: routes.loginPagePath() });
         } else {
           toast(t('errors.network'), { type: 'error' });
