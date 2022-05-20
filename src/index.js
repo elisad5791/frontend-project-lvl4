@@ -7,8 +7,8 @@ import init from './init.jsx';
 
 const runApp = async () => {
   const socket = io();
-  const app = await init(socket);
-  ReactDOM.render(app, document.getElementById('chat'));
+  const vdom = await init(socket);
+  ReactDOM.render(vdom, document.getElementById('chat'));
 };
 
 runApp();

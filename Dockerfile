@@ -14,4 +14,4 @@ COPY . .
 ENV NODE_ENV=production
 RUN make build
 
-CMD ["npm", "start"]
+CMD ["make", "start-backend"]

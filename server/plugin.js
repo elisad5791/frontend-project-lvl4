@@ -44,7 +44,6 @@ const setUpStaticAssets = (app) => {
 };
 
 const setUpAuth = (app) => {
-  // TODO add socket auth
   app
     .register(fastifyJWT, {
       secret: 'supersecret',

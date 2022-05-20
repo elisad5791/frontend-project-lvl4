@@ -1,7 +1,7 @@
 {
   "name": "@hexlet/code",
   "version": "0.0.1",
-  "description": "",
+  "description": "Chat - training frontend-project",
   "main": "src/init.jsx",
   "type": "module",
   "scripts": {
@@ -17,7 +17,7 @@
     "type": "git",
     "url": "git@github.com:hexlet-components/projects-frontend-l4-server.git"
   },
-  "author": "Kirill Mokevnin",
+  "author": "Anastasia Burnysheva",
   "license": "ISC",
   "homepage": "",
   "dependencies": {
