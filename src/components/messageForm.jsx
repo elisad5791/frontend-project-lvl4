@@ -8,8 +8,10 @@ import {
   InputGroup, FormControl, Button, FormLabel,
 } from 'react-bootstrap';
 import socketContext from '../contexts/socketContext.jsx';
+import authContext from '../contexts/authContext.jsx';
 
 function MessageForm() {
+  const auth = useContext(authContext);
   filter.loadDictionary();
   const { t } = useTranslation();
   const activeChannelId = useSelector((state) => state.app.activeChannel);
@@ -21,7 +23,7 @@ function MessageForm() {
       message: '',
     },
     onSubmit: (values) => {
-      const username = localStorage.getItem('username');
+      const username = auth.getUsername();
       const text = filter.clean(values.message);
       values.message = '';
       connection.sendMessage(
