@@ -5,7 +5,9 @@ import routes from '../routes.js';
 function PrivateRoute({ children }) {
   const userId = JSON.parse(localStorage.getItem('userId'));
   return (
-    <Route render={() => (userId ? (children) : <Redirect to={{ pathname: routes.loginPagePath() }} />)} />
+    <Route
+      render={() => (userId ? (children) : <Redirect to={{ pathname: routes.loginPagePath() }} />)}
+    />
   );
 }
 
