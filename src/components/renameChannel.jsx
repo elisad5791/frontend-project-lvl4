@@ -11,7 +11,7 @@ import socketContext from '../contexts/context.jsx';
 function RenameChannel(props) {
   const { t } = useTranslation();
   const { channel } = props;
-  const socket = useContext(socketContext);
+  const connection = useContext(socketContext);
   const channels = useSelector((state) => state.channels.value);
 
   const [show, setShow] = useState(false);
@@ -28,8 +28,7 @@ function RenameChannel(props) {
       if (index > -1) {
         setInvalid(true);
       } else {
-        socket.emit(
-          'renameChannel',
+        connection.renameChannel(
           { id: channel.id, name: values.name },
           (response) => { console.log(`rename channel - ${response.status}`); },
         );

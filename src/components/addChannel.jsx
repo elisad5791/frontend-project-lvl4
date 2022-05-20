@@ -10,7 +10,7 @@ import socketContext from '../contexts/context.jsx';
 
 function AddChannel() {
   const { t } = useTranslation();
-  const socket = useContext(socketContext);
+  const connection = useContext(socketContext);
   const channels = useSelector((state) => state.channels.value);
 
   const [show, setShow] = useState(false);
@@ -27,8 +27,7 @@ function AddChannel() {
       if (index > -1) {
         setInvalid(true);
       } else {
-        socket.emit(
-          'newChannel',
+        connection.addChannel(
           values,
           (response) => { console.log(`new channel - ${response.status}`); },
         );

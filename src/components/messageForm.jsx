@@ -13,7 +13,7 @@ function MessageForm() {
   filter.loadDictionary();
   const { t } = useTranslation();
   const activeChannelId = useSelector((state) => state.app.activeChannel);
-  const socket = useContext(socketContext);
+  const connection = useContext(socketContext);
   const buttonsBlocked = useSelector((state) => state.app.buttonsBlocked);
 
   const formik = useFormik({
@@ -24,8 +24,7 @@ function MessageForm() {
       const username = localStorage.getItem('username');
       const text = filter.clean(values.message);
       values.message = '';
-      socket.emit(
-        'newMessage',
+      connection.sendMessage(
         { username, text, channelId: activeChannelId },
         (response) => { console.log(`new message - ${response.status}`); },
       );
