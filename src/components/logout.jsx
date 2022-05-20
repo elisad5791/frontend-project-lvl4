@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setAuthorized } from '../slices/appSlice.js';
+import routes from '../routes.js';
 
 function Logout() {
   const dispatch = useDispatch();
@@ -9,7 +10,7 @@ function Logout() {
   dispatch(setAuthorized(false));
 
   return (
-    <Redirect to={{ pathname: '/login' }} />
+    <Redirect to={{ pathname: routes.loginPagePath() }} />
   );
 }
 

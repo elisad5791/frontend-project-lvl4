@@ -12,6 +12,7 @@ import {
 import { setButtonsBlocked } from '../slices/appSlice.js';
 import imgSignup from '../../assets/auth.png';
 import authContext from '../contexts/authContext.jsx';
+import routes from '../routes.js';
 
 function Signup() {
   const { t } = useTranslation();
@@ -23,7 +24,7 @@ function Signup() {
 
   const handleClick = (e) => {
     e.preventDefault();
-    history.replace({ pathname: '/login' });
+    history.replace({ pathname: routes.loginPagePath() });
   };
 
   const formik = useFormik({
@@ -49,7 +50,7 @@ function Signup() {
       try {
         await auth.signup(values);
         setInvalid(false);
-        history.replace({ pathname: '/' });
+        history.replace({ pathname: routes.chatPagePath() });
       } catch (e) {
         if (e.response.status === 409) {
           localStorage.clear();

@@ -43,7 +43,7 @@ function Chat() {
       } catch (e) {
         if (e.response.status === 401) {
           localStorage.clear();
-          history.replace({ pathname: '/login' });
+          history.replace({ pathname: routes.loginPagePath() });
         } else {
           toast(t('errors.network'), { type: 'error' });
         }

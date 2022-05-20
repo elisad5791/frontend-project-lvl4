@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setButtonsBlocked } from '../slices/appSlice.js';
 import imgLogin from '../../assets/chat.png';
 import authContext from '../contexts/authContext.jsx';
+import routes from '../routes.js';
 
 function Login() {
   const { t } = useTranslation();
@@ -22,7 +23,7 @@ function Login() {
 
   const handleClick = (e) => {
     e.preventDefault();
-    history.replace({ pathname: '/signup' });
+    history.replace({ pathname: routes.signupPagePath() });
   };
 
   const formik = useFormik({
@@ -35,7 +36,7 @@ function Login() {
       try {
         await auth.login(values);
         setInvalid(false);
-        history.replace({ pathname: '/' });
+        history.replace({ pathname: routes.chatPagePath() });
       } catch (e) {
         if (e.response.status === 401) {
           localStorage.clear();
@@ -90,7 +91,7 @@ function Login() {
         </Row>
       </Card.Body>
       <Card.Footer className="text-center">
-        <Card.Link href="/signup" onClick={handleClick} className="text-decoration-none">{t('auth.registration')}</Card.Link>
+        <Card.Link href={routes.signupPagePath()} onClick={handleClick} className="text-decoration-none">{t('auth.registration')}</Card.Link>
       </Card.Footer>
     </Card>
   );
