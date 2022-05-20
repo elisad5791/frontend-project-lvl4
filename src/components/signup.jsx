@@ -53,7 +53,7 @@ function Signup() {
         history.replace({ pathname: routes.chatPagePath() });
       } catch (e) {
         if (e.response.status === 409) {
-          localStorage.clear();
+          auth.logout();
           setInvalid(true);
         } else {
           toast(t('errors.network'), { type: 'error' });
