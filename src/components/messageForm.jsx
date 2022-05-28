@@ -24,7 +24,7 @@ function MessageForm() {
       message: '',
     },
     onSubmit: async (values) => {
-      const username = auth.getUsername();
+      const { username } = auth;
       const text = filter.clean(values.message);
       values.message = '';
       try {

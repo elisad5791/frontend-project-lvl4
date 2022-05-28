@@ -6,10 +6,9 @@ import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import { toast } from 'react-toastify';
 import { configureStore } from '@reduxjs/toolkit';
 import App from './components/app.jsx';
+import AuthProvider from './components/authProvider.jsx';
 import translation from './locales/ru.js';
 import apiContext from './contexts/apiContext.jsx';
-import authContext from './contexts/authContext.jsx';
-import auth from './auth.js';
 import {
   addMessage,
   addChannel,
@@ -108,11 +107,11 @@ const init = async (socket) => {
       <ErrorBoundary>
         <I18nextProvider i18n={i18nextInstance}>
           <apiContext.Provider value={api}>
-            <authContext.Provider value={auth}>
-              <Provider store={store}>
+            <Provider store={store}>
+              <AuthProvider>
                 <App />
-              </Provider>
-            </authContext.Provider>
+              </AuthProvider>
+            </Provider>
           </apiContext.Provider>
         </I18nextProvider>
       </ErrorBoundary>
