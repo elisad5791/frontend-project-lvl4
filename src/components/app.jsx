@@ -4,15 +4,13 @@ import {
   Switch,
   Route,
 } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { Image } from 'react-bootstrap';
 import PrivateRoute from './privateRoute.jsx';
 import Login from './login.jsx';
 import Logout from './logout.jsx';
 import Signup from './signup.jsx';
 import Chat from './chat.jsx';
 import AppNavbar from './appNavbar.jsx';
-import img404 from '../../assets/eyes.png';
+import NotFoundPage from './notFoundPage.jsx';
 import routes from '../routes.js';
 
 export default function App() {
@@ -34,20 +32,9 @@ export default function App() {
           <Chat />
         </PrivateRoute>
         <Route path="*">
-          <Empty />
+          <NotFoundPage />
         </Route>
       </Switch>
     </Router>
-  );
-}
-
-function Empty() {
-  const { t } = useTranslation();
-  return (
-    <div className="d-flex flex-column justify-content-center align-items-center h-100">
-      <h2>404</h2>
-      <p>{t('errors.pageNotFound')}</p>
-      <Image src={img404} />
-    </div>
   );
 }
