@@ -29,6 +29,19 @@ const store = configureStore({
   },
 });
 
+const createPromise = (socket, type, data) => new Promise((resolve, reject) => {
+  if (!socket.connected) {
+    reject();
+  }
+  socket.emit(type, data, (response) => {
+    if (response.status === 'ok') {
+      resolve();
+    } else {
+      reject();
+    }
+  });
+});
+
 const apiInit = (socket, t) => {
   socket.on('newMessage', (message) => {
     store.dispatch(addMessage(message));
@@ -48,17 +61,17 @@ const apiInit = (socket, t) => {
   });
 
   const api = {
-    sendMessage(data, cb) {
-      socket.emit('newMessage', data, cb);
+    sendMessage(data) {
+      return createPromise(socket, 'newMessage', data);
     },
-    addChannel(data, cb) {
-      socket.emit('newChannel', data, cb);
+    addChannel(data) {
+      return createPromise(socket, 'newChannel', data);
     },
-    renameChannel(data, cb) {
-      socket.emit('renameChannel', data, cb);
+    renameChannel(data) {
+      return createPromise(socket, 'renameChannel', data);
     },
-    removeChannel(data, cb) {
-      socket.emit('removeChannel', data, cb);
+    removeChannel(data) {
+      return createPromise(socket, 'removeChannel', data);
     },
   };
 

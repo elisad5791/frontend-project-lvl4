@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import {
   InputGroup, FormControl, Button, FormLabel,
 } from 'react-bootstrap';
+import { ToastContainer, toast } from 'react-toastify';
 import useApi from '../hooks/useApi.jsx';
 import useAuth from '../hooks/useAuth.jsx';
 
@@ -22,14 +23,15 @@ function MessageForm() {
     initialValues: {
       message: '',
     },
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       const username = auth.getUsername();
       const text = filter.clean(values.message);
       values.message = '';
-      api.sendMessage(
-        { username, text, channelId: activeChannelId },
-        (response) => { console.log(`new message - ${response.status}`); },
-      );
+      try {
+        await api.sendMessage({ username, text, channelId: activeChannelId });
+      } catch (e) {
+        toast(t('errors.network'), { type: 'error' });
+      }
     },
   });
 
@@ -53,6 +55,7 @@ function MessageForm() {
           {t('messages.send')}
         </Button>
       </InputGroup>
+      <ToastContainer />
     </form>
   );
 }
