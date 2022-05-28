@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import {
   InputGroup, FormControl, Button, FormLabel,
 } from 'react-bootstrap';
-import socketContext from '../contexts/socketContext.jsx';
+import apiContext from '../contexts/apiContext.jsx';
 import authContext from '../contexts/authContext.jsx';
 
 function MessageForm() {
@@ -15,7 +15,7 @@ function MessageForm() {
   filter.loadDictionary();
   const { t } = useTranslation();
   const activeChannelId = useSelector((state) => state.app.activeChannel);
-  const connection = useContext(socketContext);
+  const connection = useContext(apiContext);
   const buttonsBlocked = useSelector((state) => state.app.buttonsBlocked);
 
   const formik = useFormik({

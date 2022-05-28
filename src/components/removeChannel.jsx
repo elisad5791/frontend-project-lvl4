@@ -5,14 +5,14 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { setActiveChannel } from '../slices/appSlice.js';
-import socketContext from '../contexts/socketContext.jsx';
+import apiContext from '../contexts/apiContext.jsx';
 
 function RemoveChannel(props) {
   const dispatch = useDispatch();
   const defaultChannelId = useSelector((state) => state.app.defaultChannel);
   const { t } = useTranslation();
   const { id } = props;
-  const connection = useContext(socketContext);
+  const connection = useContext(apiContext);
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);

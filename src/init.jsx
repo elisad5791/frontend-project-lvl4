@@ -6,7 +6,7 @@ import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import store from './store/store.js';
 import App from './components/app.jsx';
 import translation from './locales/ru.js';
-import socketContext from './contexts/socketContext.jsx';
+import apiContext from './contexts/apiContext.jsx';
 import authContext from './contexts/authContext.jsx';
 import socketInit from './socket.js';
 import auth from './auth.js';
@@ -40,13 +40,13 @@ const init = async (socket) => {
     <RollbarProvider config={rollbarConfig}>
       <ErrorBoundary>
         <I18nextProvider i18n={i18nextInstance}>
-          <socketContext.Provider value={connection}>
+          <apiContext.Provider value={connection}>
             <authContext.Provider value={auth}>
               <Provider store={store}>
                 <App />
               </Provider>
             </authContext.Provider>
-          </socketContext.Provider>
+          </apiContext.Provider>
         </I18nextProvider>
       </ErrorBoundary>
     </RollbarProvider>

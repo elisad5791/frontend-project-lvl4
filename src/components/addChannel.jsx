@@ -6,11 +6,11 @@ import {
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import socketContext from '../contexts/socketContext.jsx';
+import apiContext from '../contexts/apiContext.jsx';
 
 function AddChannel() {
   const { t } = useTranslation();
-  const connection = useContext(socketContext);
+  const connection = useContext(apiContext);
   const channels = useSelector((state) => state.channels.value);
 
   const [show, setShow] = useState(false);
