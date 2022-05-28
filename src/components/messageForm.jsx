@@ -16,7 +16,7 @@ function MessageForm() {
   const { t } = useTranslation();
   const activeChannelId = useSelector((state) => state.app.activeChannel);
   const api = useApi();
-  const buttonsBlocked = useSelector((state) => state.app.buttonsBlocked);
+  const requestState = useSelector((state) => state.app.requestState);
 
   const formik = useFormik({
     initialValues: {
@@ -49,7 +49,7 @@ function MessageForm() {
           value={formik.values.message}
           aria-describedby="basic-addon2"
         />
-        <Button type="submit" variant="outline-secondary" id="button-addon2" disabled={buttonsBlocked}>
+        <Button type="submit" variant="outline-secondary" id="button-addon2" disabled={requestState === 'processing'}>
           {t('messages.send')}
         </Button>
       </InputGroup>

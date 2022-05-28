@@ -3,7 +3,7 @@ import channelsReducer, {
 } from './channelsSlice.js';
 import messagesReducer, { addMessage, setMessages } from './messagesSlice.js';
 import appReducer, {
-  setActiveChannel, setDefaultChannel, setShowModal, setButtonsBlocked,
+  setActiveChannel, setDefaultChannel, setShowModal, setRequestState,
 } from './appSlice.js';
 
 export {
@@ -19,5 +19,5 @@ export {
   setActiveChannel,
   setDefaultChannel,
   setShowModal,
-  setButtonsBlocked,
+  setRequestState,
 };

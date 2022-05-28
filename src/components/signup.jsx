@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   Form, Button, Card, Image, Row, Col,
 } from 'react-bootstrap';
-import { setButtonsBlocked } from '../slices/index.js';
+import { setRequestState } from '../slices/index.js';
 import imgSignup from '../../assets/auth.png';
 import useAuth from '../hooks/useAuth.jsx';
 import routes from '../routes.js';
@@ -20,7 +20,7 @@ function Signup() {
   const [invalid, setInvalid] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
-  const buttonsBlocked = useSelector((state) => state.app.buttonsBlocked);
+  const requestState = useSelector((state) => state.app.requestState);
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -46,7 +46,7 @@ function Signup() {
         .oneOf([Yup.ref('password'), null], t('errors.confirmation')),
     }),
     onSubmit: async (values) => {
-      dispatch(setButtonsBlocked(true));
+      dispatch(setRequestState('processing'));
       try {
         await auth.signup(values);
         setInvalid(false);
@@ -59,7 +59,7 @@ function Signup() {
           toast(t('errors.network'), { type: 'error' });
         }
       }
-      dispatch(setButtonsBlocked(false));
+      dispatch(setRequestState('idle'));
     },
   });
 
@@ -123,7 +123,7 @@ function Signup() {
 
               {invalid && <div className="text-danger mb-3">{t('errors.userExists')}</div>}
 
-              <Button variant="primary" type="submit" disabled={buttonsBlocked}>
+              <Button variant="primary" type="submit" disabled={requestState === 'processing'}>
                 {t('auth.register')}
               </Button>
               <ToastContainer />

@@ -5,7 +5,7 @@ const initialState = {
   activeChannel: null,
   defaultChannel: null,
   showModal: false,
-  buttonsBlocked: false,
+  requestState: 'idle',
 };
 
 const appSlice = createSlice({
@@ -21,13 +21,13 @@ const appSlice = createSlice({
     setShowModal: (state, { payload }) => {
       state.showModal = payload;
     },
-    setButtonsBlocked: (state, { payload }) => {
+    setRequestState: (state, { payload }) => {
       state.buttonsBlocked = payload;
     },
   },
 });
 
 export const {
-  setActiveChannel, setDefaultChannel, setShowModal, setButtonsBlocked,
+  setActiveChannel, setDefaultChannel, setShowModal, setRequestState,
 } = appSlice.actions;
 export default appSlice.reducer;

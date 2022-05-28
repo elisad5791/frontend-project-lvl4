@@ -8,7 +8,7 @@ import {
   Form, Button, Card, Image, Row, Col,
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { setButtonsBlocked } from '../slices/index.js';
+import { setRequestState } from '../slices/index.js';
 import imgLogin from '../../assets/chat.png';
 import useAuth from '../hooks/useAuth.jsx';
 import routes from '../routes.js';
@@ -19,7 +19,7 @@ function Login() {
   const [invalid, setInvalid] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
-  const buttonsBlocked = useSelector((state) => state.app.buttonsBlocked);
+  const requestState = useSelector((state) => state.app.requestState);
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -32,7 +32,7 @@ function Login() {
       password: '',
     },
     onSubmit: async (values) => {
-      dispatch(setButtonsBlocked(true));
+      dispatch(setRequestState('processing'));
       try {
         await auth.login(values);
         setInvalid(false);
@@ -45,7 +45,7 @@ function Login() {
           toast(t('errors.network'), { type: 'error' });
         }
       }
-      dispatch(setButtonsBlocked(false));
+      dispatch(setRequestState('idle'));
     },
   });
   return (
@@ -82,7 +82,7 @@ function Login() {
 
               {invalid && <div className="text-danger mb-3">{t('errors.auth')}</div>}
 
-              <Button variant="primary" type="submit" disabled={buttonsBlocked}>
+              <Button variant="primary" type="submit" disabled={requestState === 'processing'}>
                 {t('auth.enter')}
               </Button>
               <ToastContainer />

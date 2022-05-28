@@ -16,7 +16,7 @@ import {
   setMessages,
   setDefaultChannel,
   setActiveChannel,
-  setButtonsBlocked,
+  setRequestState,
 } from '../slices/index.js';
 
 function Chat() {
@@ -31,7 +31,7 @@ function Chat() {
 
   useEffect(() => {
     const getData = async () => {
-      dispatch(setButtonsBlocked(true));
+      dispatch(setRequestState('processing'));
       try {
         const token = auth.getToken();
         const headers = { Authorization: `Bearer ${token}` };
@@ -47,7 +47,7 @@ function Chat() {
         auth.logout();
         history.replace({ pathname: routes.loginPagePath() });
       }
-      dispatch(setButtonsBlocked(false));
+      dispatch(setRequestState('idle'));
     };
     getData();
   }, []);
