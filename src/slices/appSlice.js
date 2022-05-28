@@ -5,7 +5,6 @@ const initialState = {
   activeChannel: null,
   defaultChannel: null,
   showModal: false,
-  isAuthenticated: false,
   buttonsBlocked: false,
 };
 
@@ -25,13 +24,10 @@ const appSlice = createSlice({
     setButtonsBlocked: (state, { payload }) => {
       state.buttonsBlocked = payload;
     },
-    setAuthenticated: (state, { payload }) => {
-      state.isAuthenticated = payload;
-    },
   },
 });
 
 export const {
-  setActiveChannel, setDefaultChannel, setShowModal, setAuthenticated, setButtonsBlocked,
+  setActiveChannel, setDefaultChannel, setShowModal, setButtonsBlocked,
 } = appSlice.actions;
 export default appSlice.reducer;

@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dropdown, Button, ButtonGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { setActiveChannel } from '../slices/appSlice.js';
+import { setActiveChannel } from '../slices/index.js';
 import AddChannel from './addChannel.jsx';
 import RemoveChannel from './removeChannel.jsx';
 import RenameChannel from './renameChannel.jsx';

@@ -4,15 +4,30 @@ import { Provider } from 'react-redux';
 import i18next from 'i18next';
 import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import { toast } from 'react-toastify';
-import store from './store/store.js';
+import { configureStore } from '@reduxjs/toolkit';
 import App from './components/app.jsx';
 import translation from './locales/ru.js';
 import apiContext from './contexts/apiContext.jsx';
 import authContext from './contexts/authContext.jsx';
 import auth from './auth.js';
-import { addMessage } from './slices/messagesSlice.js';
-import { addChannel, removeChannel, renameChannel } from './slices/channelsSlice.js';
-import { setActiveChannel } from './slices/appSlice.js';
+import {
+  addMessage,
+  addChannel,
+  removeChannel,
+  renameChannel,
+  setActiveChannel,
+  channelsReducer,
+  messagesReducer,
+  appReducer,
+} from './slices/index.js';
+
+const store = configureStore({
+  reducer: {
+    channels: channelsReducer,
+    messages: messagesReducer,
+    app: appReducer,
+  },
+});
 
 const apiInit = (socket, t) => {
   socket.on('newMessage', (message) => {
@@ -93,3 +108,4 @@ const init = async (socket) => {
 };
 
 export default init;
+export { store };

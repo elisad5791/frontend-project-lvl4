@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   Form, Button, Card, Image, Row, Col,
 } from 'react-bootstrap';
-import { setButtonsBlocked } from '../slices/appSlice.js';
+import { setButtonsBlocked } from '../slices/index.js';
 import imgSignup from '../../assets/auth.png';
 import useAuth from '../hooks/useAuth.jsx';
 import routes from '../routes.js';

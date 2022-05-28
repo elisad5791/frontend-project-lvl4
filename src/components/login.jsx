@@ -8,7 +8,7 @@ import {
   Form, Button, Card, Image, Row, Col,
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { setButtonsBlocked } from '../slices/appSlice.js';
+import { setButtonsBlocked } from '../slices/index.js';
 import imgLogin from '../../assets/chat.png';
 import useAuth from '../hooks/useAuth.jsx';
 import routes from '../routes.js';

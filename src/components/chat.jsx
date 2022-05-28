@@ -6,16 +6,18 @@ import axios from 'axios';
 import { Container, Row, Col } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import routes from '../routes.js';
-import { setChannels } from '../slices/channelsSlice.js';
-import { setMessages } from '../slices/messagesSlice.js';
-import {
-  setDefaultChannel, setActiveChannel, setButtonsBlocked,
-} from '../slices/appSlice.js';
 import Messages from './messages.jsx';
 import Channels from './channels.jsx';
 import ChannelInfo from './channelInfo.jsx';
 import MessageForm from './messageForm.jsx';
 import useAuth from '../hooks/useAuth.jsx';
+import {
+  setChannels,
+  setMessages,
+  setDefaultChannel,
+  setActiveChannel,
+  setButtonsBlocked,
+} from '../slices/index.js';
 
 function Chat() {
   const history = useHistory();

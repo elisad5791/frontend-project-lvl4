@@ -4,7 +4,7 @@ import {
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { setActiveChannel } from '../slices/appSlice.js';
+import { setActiveChannel } from '../slices/index.js';
 import useApi from '../hooks/useApi.jsx';
 
 function RemoveChannel(props) {
