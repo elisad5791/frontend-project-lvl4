@@ -4,6 +4,7 @@ import {
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import { setActiveChannel } from '../slices/index.js';
 import useApi from '../hooks/useApi.jsx';
 
@@ -18,12 +19,13 @@ function RemoveChannel(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    api.removeChannel(
-      { id },
-      (response) => { console.log(`remove channel - ${response.status}`); },
-    );
+    try {
+      await api.removeChannel({ id });
+    } catch (err) {
+      toast(t('errors.network'), { type: 'error' });
+    }
     dispatch(setActiveChannel(defaultChannelId));
     handleClose();
   };

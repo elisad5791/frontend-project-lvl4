@@ -6,6 +6,7 @@ import {
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import useApi from '../hooks/useApi.jsx';
 
 function AddChannel() {
@@ -22,15 +23,16 @@ function AddChannel() {
     initialValues: {
       name: '',
     },
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       const index = channels.findIndex((channel) => channel.name === values.name);
       if (index > -1) {
         setInvalid(true);
       } else {
-        api.addChannel(
-          values,
-          (response) => { console.log(`new channel - ${response.status}`); },
-        );
+        try {
+          await api.addChannel(values);
+        } catch (e) {
+          toast(t('errors.network'), { type: 'error' });
+        }
         values.name = '';
         setInvalid(false);
         handleClose();

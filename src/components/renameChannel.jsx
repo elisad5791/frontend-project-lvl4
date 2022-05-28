@@ -6,6 +6,7 @@ import {
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import useApi from '../hooks/useApi.jsx';
 
 function RenameChannel(props) {
@@ -23,15 +24,16 @@ function RenameChannel(props) {
     initialValues: {
       name: channel.name,
     },
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       const index = channels.findIndex((item) => item.name === values.name);
       if (index > -1) {
         setInvalid(true);
       } else {
-        api.renameChannel(
-          { id: channel.id, name: values.name },
-          (response) => { console.log(`rename channel - ${response.status}`); },
-        );
+        try {
+          await api.renameChannel({ id: channel.id, name: values.name });
+        } catch (e) {
+          toast(t('errors.network'), { type: 'error' });
+        }
         values.name = '';
         setInvalid(false);
         handleClose();
