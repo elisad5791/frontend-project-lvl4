@@ -21,14 +21,6 @@ import {
   appReducer,
 } from './slices/index.js';
 
-const store = configureStore({
-  reducer: {
-    channels: channelsReducer,
-    messages: messagesReducer,
-    app: appReducer,
-  },
-});
-
 const createPromise = (socket, type, data) => new Promise((resolve, reject) => {
   if (!socket.connected) {
     reject();
@@ -42,7 +34,7 @@ const createPromise = (socket, type, data) => new Promise((resolve, reject) => {
   });
 });
 
-const apiInit = (socket, t) => {
+const apiInit = (socket, store, t) => {
   socket.on('newMessage', (message) => {
     store.dispatch(addMessage(message));
   });
@@ -94,7 +86,15 @@ const init = async (socket) => {
       },
     });
 
-  const api = apiInit(socket, i18nextInstance.t);
+  const store = configureStore({
+    reducer: {
+      channels: channelsReducer,
+      messages: messagesReducer,
+      app: appReducer,
+    },
+  });
+
+  const api = apiInit(socket, store, i18nextInstance.t);
 
   const rollbarConfig = {
     accessToken: process.env.ROLLBAR_ACCESS_TOKEN,
@@ -121,4 +121,3 @@ const init = async (socket) => {
 };
 
 export default init;
-export { store };

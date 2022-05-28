@@ -23,7 +23,7 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin(),
-    new Dotenv(),
+    new Dotenv({ systemvars: true }),
   ],
   module: {
     rules: [
