@@ -1,17 +1,17 @@
 /* eslint-disable no-param-reassign */
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import {
   Modal, FormGroup, FormControl, Button, Form, Dropdown, FormLabel,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import apiContext from '../contexts/apiContext.jsx';
+import useApi from '../hooks/useApi.jsx';
 
 function RenameChannel(props) {
   const { t } = useTranslation();
   const { channel } = props;
-  const connection = useContext(apiContext);
+  const connection = useApi();
   const channels = useSelector((state) => state.channels.value);
 
   const [show, setShow] = useState(false);

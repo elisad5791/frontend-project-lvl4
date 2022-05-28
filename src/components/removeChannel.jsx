@@ -1,18 +1,18 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import {
   Modal, Button, Form, Dropdown,
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { setActiveChannel } from '../slices/appSlice.js';
-import apiContext from '../contexts/apiContext.jsx';
+import useApi from '../hooks/useApi.jsx';
 
 function RemoveChannel(props) {
   const dispatch = useDispatch();
   const defaultChannelId = useSelector((state) => state.app.defaultChannel);
   const { t } = useTranslation();
   const { id } = props;
-  const connection = useContext(apiContext);
+  const connection = useApi();
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);

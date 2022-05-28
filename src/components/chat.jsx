@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector, batch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -15,12 +15,12 @@ import Messages from './messages.jsx';
 import Channels from './channels.jsx';
 import ChannelInfo from './channelInfo.jsx';
 import MessageForm from './messageForm.jsx';
-import authContext from '../contexts/authContext.jsx';
+import useAuth from '../hooks/useAuth.jsx';
 
 function Chat() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const auth = useContext(authContext);
+  const auth = useAuth();
   const { t } = useTranslation();
   const channels = useSelector((state) => state.channels.value);
   const activeChannelId = useSelector((state) => state.app.activeChannel);

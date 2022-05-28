@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { ToastContainer, toast } from 'react-toastify';
@@ -10,12 +10,12 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { setButtonsBlocked } from '../slices/appSlice.js';
 import imgLogin from '../../assets/chat.png';
-import authContext from '../contexts/authContext.jsx';
+import useAuth from '../hooks/useAuth.jsx';
 import routes from '../routes.js';
 
 function Login() {
   const { t } = useTranslation();
-  const auth = useContext(authContext);
+  const auth = useAuth();
   const [invalid, setInvalid] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();

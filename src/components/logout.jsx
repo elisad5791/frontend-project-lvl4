@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Redirect } from 'react-router-dom';
 import routes from '../routes.js';
-import authContext from '../contexts/authContext.jsx';
+import useAuth from '../hooks/useAuth.jsx';
 
 function Logout() {
-  const auth = useContext(authContext);
+  const auth = useAuth();
   auth.logout();
 
   return (

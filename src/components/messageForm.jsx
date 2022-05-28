@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import React, { useContext } from 'react';
+import React from 'react';
 import { useFormik } from 'formik';
 import { useSelector } from 'react-redux';
 import filter from 'leo-profanity';
@@ -7,15 +7,15 @@ import { useTranslation } from 'react-i18next';
 import {
   InputGroup, FormControl, Button, FormLabel,
 } from 'react-bootstrap';
-import apiContext from '../contexts/apiContext.jsx';
-import authContext from '../contexts/authContext.jsx';
+import useApi from '../hooks/useApi.jsx';
+import useAuth from '../hooks/useAuth.jsx';
 
 function MessageForm() {
-  const auth = useContext(authContext);
+  const auth = useAuth();
   filter.loadDictionary();
   const { t } = useTranslation();
   const activeChannelId = useSelector((state) => state.app.activeChannel);
-  const connection = useContext(apiContext);
+  const connection = useApi();
   const buttonsBlocked = useSelector((state) => state.app.buttonsBlocked);
 
   const formik = useFormik({

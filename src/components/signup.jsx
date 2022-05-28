@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -11,12 +11,12 @@ import {
 } from 'react-bootstrap';
 import { setButtonsBlocked } from '../slices/appSlice.js';
 import imgSignup from '../../assets/auth.png';
-import authContext from '../contexts/authContext.jsx';
+import useAuth from '../hooks/useAuth.jsx';
 import routes from '../routes.js';
 
 function Signup() {
   const { t } = useTranslation();
-  const auth = useContext(authContext);
+  const auth = useAuth();
   const [invalid, setInvalid] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
