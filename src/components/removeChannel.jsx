@@ -12,7 +12,7 @@ function RemoveChannel(props) {
   const defaultChannelId = useSelector((state) => state.app.defaultChannel);
   const { t } = useTranslation();
   const { id } = props;
-  const connection = useApi();
+  const api = useApi();
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -20,7 +20,7 @@ function RemoveChannel(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    connection.removeChannel(
+    api.removeChannel(
       { id },
       (response) => { console.log(`remove channel - ${response.status}`); },
     );

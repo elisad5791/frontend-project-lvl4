@@ -11,7 +11,7 @@ import useApi from '../hooks/useApi.jsx';
 function RenameChannel(props) {
   const { t } = useTranslation();
   const { channel } = props;
-  const connection = useApi();
+  const api = useApi();
   const channels = useSelector((state) => state.channels.value);
 
   const [show, setShow] = useState(false);
@@ -28,7 +28,7 @@ function RenameChannel(props) {
       if (index > -1) {
         setInvalid(true);
       } else {
-        connection.renameChannel(
+        api.renameChannel(
           { id: channel.id, name: values.name },
           (response) => { console.log(`rename channel - ${response.status}`); },
         );

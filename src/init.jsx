@@ -14,7 +14,7 @@ import { addMessage } from './slices/messagesSlice.js';
 import { addChannel, removeChannel, renameChannel } from './slices/channelsSlice.js';
 import { setActiveChannel } from './slices/appSlice.js';
 
-const socketInit = (socket, t) => {
+const apiInit = (socket, t) => {
   socket.on('newMessage', (message) => {
     store.dispatch(addMessage(message));
   });
@@ -32,7 +32,7 @@ const socketInit = (socket, t) => {
     toast(t('channels.renamed'), { type: 'success' });
   });
 
-  const connection = {
+  const api = {
     sendMessage(data, cb) {
       socket.emit('newMessage', data, cb);
     },
@@ -47,7 +47,7 @@ const socketInit = (socket, t) => {
     },
   };
 
-  return connection;
+  return api;
 };
 
 const init = async (socket) => {
@@ -66,7 +66,7 @@ const init = async (socket) => {
       },
     });
 
-  const connection = socketInit(socket, i18nextInstance.t);
+  const api = apiInit(socket, i18nextInstance.t);
 
   const rollbarConfig = {
     accessToken: process.env.ROLLBAR_ACCESS_TOKEN,
@@ -79,7 +79,7 @@ const init = async (socket) => {
     <RollbarProvider config={rollbarConfig}>
       <ErrorBoundary>
         <I18nextProvider i18n={i18nextInstance}>
-          <apiContext.Provider value={connection}>
+          <apiContext.Provider value={api}>
             <authContext.Provider value={auth}>
               <Provider store={store}>
                 <App />

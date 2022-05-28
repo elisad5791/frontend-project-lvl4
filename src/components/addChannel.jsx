@@ -10,7 +10,7 @@ import useApi from '../hooks/useApi.jsx';
 
 function AddChannel() {
   const { t } = useTranslation();
-  const connection = useApi();
+  const api = useApi();
   const channels = useSelector((state) => state.channels.value);
 
   const [show, setShow] = useState(false);
@@ -27,7 +27,7 @@ function AddChannel() {
       if (index > -1) {
         setInvalid(true);
       } else {
-        connection.addChannel(
+        api.addChannel(
           values,
           (response) => { console.log(`new channel - ${response.status}`); },
         );

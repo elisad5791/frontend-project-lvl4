@@ -15,7 +15,7 @@ function MessageForm() {
   filter.loadDictionary();
   const { t } = useTranslation();
   const activeChannelId = useSelector((state) => state.app.activeChannel);
-  const connection = useApi();
+  const api = useApi();
   const buttonsBlocked = useSelector((state) => state.app.buttonsBlocked);
 
   const formik = useFormik({
@@ -26,7 +26,7 @@ function MessageForm() {
       const username = auth.getUsername();
       const text = filter.clean(values.message);
       values.message = '';
-      connection.sendMessage(
+      api.sendMessage(
         { username, text, channelId: activeChannelId },
         (response) => { console.log(`new message - ${response.status}`); },
       );
