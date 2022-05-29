@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import useApi from '../hooks/useApi.jsx';
 
-function RenameChannel(props) {
+function RenameChannelModal(props) {
   const { t } = useTranslation();
   const { channel } = props;
   const api = useApi();
@@ -75,4 +75,4 @@ function RenameChannel(props) {
   );
 }
 
-export default RenameChannel;
+export default RenameChannelModal;

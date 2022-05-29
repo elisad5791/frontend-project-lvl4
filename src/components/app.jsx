@@ -5,10 +5,10 @@ import {
   Route,
 } from 'react-router-dom';
 import PrivateRoute from './privateRoute.jsx';
-import Login from './login.jsx';
-import Logout from './logout.jsx';
-import Signup from './signup.jsx';
-import Chat from './chat.jsx';
+import LoginPage from './loginPage.jsx';
+import LogoutPage from './logoutPage.jsx';
+import SignupPage from './signupPage.jsx';
+import ChatPage from './chatPage.jsx';
 import AppNavbar from './appNavbar.jsx';
 import NotFoundPage from './notFoundPage.jsx';
 import routes from '../routes.js';
@@ -20,16 +20,16 @@ export default function App() {
 
       <Switch>
         <Route path={routes.loginPagePath()}>
-          <Login />
+          <LoginPage />
         </Route>
         <Route path={routes.logoutPath()}>
-          <Logout />
+          <LogoutPage />
         </Route>
         <Route path={routes.signupPagePath()}>
-          <Signup />
+          <SignupPage />
         </Route>
         <PrivateRoute exact path={routes.chatPagePath()}>
-          <Chat />
+          <ChatPage />
         </PrivateRoute>
         <Route path="*">
           <NotFoundPage />

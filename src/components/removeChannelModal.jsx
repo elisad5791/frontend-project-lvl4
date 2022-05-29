@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import { setActiveChannel } from '../slices/index.js';
 import useApi from '../hooks/useApi.jsx';
 
-function RemoveChannel(props) {
+function RemoveChannelModal(props) {
   const dispatch = useDispatch();
   const defaultChannelId = useSelector((state) => state.app.defaultChannel);
   const { t } = useTranslation();
@@ -52,4 +52,4 @@ function RemoveChannel(props) {
   );
 }
 
-export default RemoveChannel;
+export default RemoveChannelModal;

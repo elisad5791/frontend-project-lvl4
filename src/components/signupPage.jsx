@@ -14,7 +14,7 @@ import imgSignup from '../../assets/auth.png';
 import useAuth from '../hooks/useAuth.jsx';
 import routes from '../routes.js';
 
-function Signup() {
+function SignupPage() {
   const { t } = useTranslation();
   const auth = useAuth();
   const [invalid, setInvalid] = useState(false);
@@ -138,4 +138,4 @@ function Signup() {
   );
 }
 
-export default Signup;
+export default SignupPage;

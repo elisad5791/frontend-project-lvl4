@@ -13,7 +13,7 @@ import imgLogin from '../../assets/chat.png';
 import useAuth from '../hooks/useAuth.jsx';
 import routes from '../routes.js';
 
-function Login() {
+function LoginPage() {
   const { t } = useTranslation();
   const auth = useAuth();
   const [invalid, setInvalid] = useState(false);
@@ -97,4 +97,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default LoginPage;

@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import useApi from '../hooks/useApi.jsx';
 
-function AddChannel() {
+function AddChannelModal() {
   const { t } = useTranslation();
   const api = useApi();
   const channels = useSelector((state) => state.channels.value);
@@ -74,4 +74,4 @@ function AddChannel() {
   );
 }
 
-export default AddChannel;
+export default AddChannelModal;

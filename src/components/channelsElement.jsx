@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Dropdown, Button, ButtonGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { setActiveChannel } from '../slices/index.js';
-import AddChannel from './addChannel.jsx';
-import RemoveChannel from './removeChannel.jsx';
-import RenameChannel from './renameChannel.jsx';
+import AddChannelModal from './addChannelModal.jsx';
+import RemoveChannelModal from './removeChannelModal.jsx';
+import RenameChannelModal from './renameChannelModal.jsx';
 
 function Channels(props) {
   const { t } = useTranslation();
@@ -20,7 +20,7 @@ function Channels(props) {
 
   return (
     <>
-      <AddChannel />
+      <AddChannelModal />
       {channels.map((channel) => {
         const { id, name, removable } = channel;
         const active = id === activeChannel;
@@ -36,8 +36,8 @@ function Channels(props) {
             { removable
               && (
               <Dropdown.Menu variant="light">
-                <RemoveChannel id={id} />
-                <RenameChannel channel={channel} />
+                <RemoveChannelModal id={id} />
+                <RenameChannelModal channel={channel} />
               </Dropdown.Menu>
               )}
           </Dropdown>

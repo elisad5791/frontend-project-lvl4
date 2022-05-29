@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import routes from '../routes.js';
 import useAuth from '../hooks/useAuth.jsx';
 
-function Logout() {
+function LogoutPage() {
   const auth = useAuth();
   auth.logout();
 
@@ -12,4 +12,4 @@ function Logout() {
   );
 }
 
-export default Logout;
+export default LogoutPage;

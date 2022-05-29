@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { animateScroll as scroll } from 'react-scroll';
 
-function Messages(props) {
+function MessagesElement(props) {
   const { messages } = props;
 
   useEffect(() => {
@@ -22,4 +22,4 @@ function Messages(props) {
   );
 }
 
-export default Messages;
+export default MessagesElement;

@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-function ChannelInfo() {
+function ChannelInfoElement() {
   const { t } = useTranslation();
   const channels = useSelector((state) => state.channels.value);
   const activeChannelId = useSelector((state) => state.app.activeChannel);
@@ -27,4 +27,4 @@ function ChannelInfo() {
   );
 }
 
-export default ChannelInfo;
+export default ChannelInfoElement;

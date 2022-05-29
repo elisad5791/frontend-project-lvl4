@@ -6,9 +6,9 @@ import axios from 'axios';
 import { Container, Row, Col } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import routes from '../routes.js';
-import Messages from './messages.jsx';
-import Channels from './channels.jsx';
-import ChannelInfo from './channelInfo.jsx';
+import MessagesElement from './messagesElement.jsx';
+import ChannelsElement from './channelsElement.jsx';
+import ChannelInfoElement from './channelInfoElement.jsx';
 import MessageForm from './messageForm.jsx';
 import useAuth from '../hooks/useAuth.jsx';
 import {
@@ -19,7 +19,7 @@ import {
   setRequestState,
 } from '../slices/index.js';
 
-function Chat() {
+function ChatPage() {
   const history = useHistory();
   const dispatch = useDispatch();
   const auth = useAuth();
@@ -56,11 +56,11 @@ function Chat() {
     <Container className="shadow h-100">
       <Row className="h-100">
         <Col xs={3} className="border-end h-100 p-3">
-          <Channels channels={channels} />
+          <ChannelsElement channels={channels} />
         </Col>
         <Col xs={9} className="h-100 p-0 d-flex flex-column">
-          <ChannelInfo />
-          <Messages messages={messages} />
+          <ChannelInfoElement />
+          <MessagesElement messages={messages} />
           <MessageForm />
         </Col>
       </Row>
@@ -69,4 +69,4 @@ function Chat() {
   );
 }
 
-export default Chat;
+export default ChatPage;
