@@ -42,7 +42,7 @@ function RemoveChannelModal(props) {
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit}>
-            <Button variant="primary" type="submit">
+            <Button variant="danger" type="submit">
               {t('channels.removeButton')}
             </Button>
           </Form>
