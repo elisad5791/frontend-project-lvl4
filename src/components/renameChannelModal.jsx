@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import {
@@ -24,7 +23,7 @@ function RenameChannelModal(props) {
     initialValues: {
       name: channel.name,
     },
-    onSubmit: async (values) => {
+    onSubmit: async (values, { resetForm }) => {
       const index = channels.findIndex((item) => item.name === values.name);
       if (index > -1) {
         setInvalid(true);
@@ -34,7 +33,7 @@ function RenameChannelModal(props) {
         } catch (e) {
           toast(t('errors.network'), { type: 'error' });
         }
-        values.name = '';
+        resetForm();
         setInvalid(false);
         handleClose();
       }
