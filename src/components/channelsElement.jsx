@@ -2,8 +2,9 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dropdown, Button, ButtonGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { setActiveChannel } from '../slices/index.js';
-import AddChannelModal from './addChannelModal.jsx';
+import {
+  setActiveChannel, showModal, setModalType,
+} from '../slices/index.js';
 import RemoveChannelModal from './removeChannelModal.jsx';
 import RenameChannelModal from './renameChannelModal.jsx';
 
@@ -18,9 +19,17 @@ function Channels(props) {
     dispatch(setActiveChannel(id));
   };
 
+  const showModalWindow = () => {
+    dispatch(setModalType('add'));
+    dispatch(showModal());
+  };
+
   return (
     <>
-      <AddChannelModal />
+      <p className="lead d-flex justify-content-between align-items-center">
+        {t('channels.title')}
+        <Button variant="outline" onClick={showModalWindow} className="p-1 fs-3 lh-1 text-primary">+</Button>
+      </p>
       {channels.map((channel) => {
         const { id, name, removable } = channel;
         const active = id === activeChannel;

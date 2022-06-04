@@ -18,6 +18,7 @@ import {
   channelsReducer,
   messagesReducer,
   appReducer,
+  modalReducer,
 } from './slices/index.js';
 
 const createPromise = (socket, type, data) => new Promise((resolve, reject) => {
@@ -91,6 +92,7 @@ const init = async (socket) => {
       channels: channelsReducer,
       messages: messagesReducer,
       app: appReducer,
+      modal: modalReducer,
     },
   });
 

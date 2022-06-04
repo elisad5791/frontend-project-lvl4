@@ -10,6 +10,7 @@ import MessagesElement from './messagesElement.jsx';
 import ChannelsElement from './channelsElement.jsx';
 import ChannelInfoElement from './channelInfoElement.jsx';
 import MessageForm from './messageForm.jsx';
+import ModalWindow from '../modalWindow.jsx';
 import useAuth from '../hooks/useAuth.jsx';
 import {
   setChannels,
@@ -67,6 +68,7 @@ function ChatPage() {
         </Col>
       </Row>
       <ToastContainer />
+      <ModalWindow />
     </Container>
   );
 }
