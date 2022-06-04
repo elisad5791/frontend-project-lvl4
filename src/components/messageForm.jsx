@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import React from 'react';
 import { useFormik } from 'formik';
 import { useSelector } from 'react-redux';
@@ -23,12 +22,12 @@ function MessageForm() {
     initialValues: {
       message: '',
     },
-    onSubmit: async (values) => {
+    onSubmit: async (values, { resetForm }) => {
       const { username } = auth;
       const text = filter.clean(values.message);
-      values.message = '';
       try {
         await api.sendMessage({ username, text, channelId: activeChannelId });
+        resetForm();
       } catch (e) {
         toast(t('errors.network'), { type: 'error' });
       }
