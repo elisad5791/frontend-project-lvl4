@@ -40,50 +40,57 @@ function ModalWindow() {
     remove: 'danger',
     rename: 'primary',
   };
+  const apiMethod = {
+    add: api.addChannel,
+    rename: api.renameChannel,
+    remove: api.removeChannel,
+  };
+  const changeChannel = {
+    add: false,
+    rename: false,
+    remove: true,
+  };
 
   const handleClose = () => {
     dispatch(hideModal());
   };
 
+  const makeRequest = async (arg, resetForm) => {
+    try {
+      await apiMethod[type](arg);
+    } catch (e) {
+      toast(t('errors.network'), { type: 'error' });
+    }
+    if (changeChannel[type]) {
+      dispatch(setActiveChannel(defaultChannelId));
+    }
+    resetForm();
+    setInvalid(false);
+    handleClose();
+  };
+
+  const makeValidatedRequest = async (name, dataForRequest, resetForm) => {
+    const index = channels.findIndex((item) => item.name === name);
+    if (index > -1) {
+      setInvalid(true);
+    } else {
+      await makeRequest(dataForRequest, resetForm);
+    }
+  };
+
   const submitForm = {
     add: async (values, { resetForm }) => {
-      const index = channels.findIndex((channel) => channel.name === values.name);
-      if (index > -1) {
-        setInvalid(true);
-      } else {
-        try {
-          await api.addChannel(values);
-        } catch (e) {
-          toast(t('errors.network'), { type: 'error' });
-        }
-        resetForm();
-        setInvalid(false);
-        handleClose();
-      }
+      await makeValidatedRequest(values.name, values, resetForm);
     },
     rename: async (values, { resetForm }) => {
-      const index = channels.findIndex((item) => item.name === values.name);
-      if (index > -1) {
-        setInvalid(true);
-      } else {
-        try {
-          await api.renameChannel({ id: data.channel.id, name: values.name });
-        } catch (e) {
-          toast(t('errors.network'), { type: 'error' });
-        }
-        resetForm();
-        setInvalid(false);
-        handleClose();
-      }
+      await makeValidatedRequest(
+        values.name,
+        { id: data.channel.id, name: values.name },
+        resetForm,
+      );
     },
-    remove: async () => {
-      try {
-        await api.removeChannel({ id: data.id });
-      } catch (err) {
-        toast(t('errors.network'), { type: 'error' });
-      }
-      dispatch(setActiveChannel(defaultChannelId));
-      handleClose();
+    remove: async (values, { resetForm }) => {
+      await makeRequest({ id: data.id }, resetForm);
     },
   };
 
