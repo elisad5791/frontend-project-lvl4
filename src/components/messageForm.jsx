@@ -37,7 +37,7 @@ function MessageForm() {
 
   return (
     <form onSubmit={formik.handleSubmit} className="p-3 border-top">
-      <FormLabel htmlFor="message" className="visually-hidden">{t('messages.new')}</FormLabel>
+      <FormLabel htmlFor="message" className="visually-hidden" aria-label={t('messages.new')}>{t('messages.new')}</FormLabel>
       <InputGroup>
         <FormControl
           id="message"
