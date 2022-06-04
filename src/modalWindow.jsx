@@ -7,39 +7,42 @@ import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import useApi from './hooks/useApi.jsx';
-import { channelsSelectors, hideModal } from './slices/index.js';
+import { channelsSelectors, hideModal, setActiveChannel } from './slices/index.js';
 
 function ModalWindow() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const api = useApi();
   const channels = useSelector(channelsSelectors.selectAll);
+  const defaultChannelId = useSelector((state) => state.app.defaultChannel);
   const show = useSelector((state) => state.modal.show);
   const type = useSelector((state) => state.modal.type);
+  const data = useSelector((state) => state.modal.data);
+  const [invalid, setInvalid] = useState(false);
 
   const title = {
     add: t('channels.addChannel'),
+    remove: t('channels.removeChannel'),
   };
   const buttonText = {
     add: t('submit'),
+    remove: t('channels.removeButton'),
   };
   const inputVisible = {
     add: true,
+    remove: false,
   };
   const buttonVariant = {
     add: 'primary',
+    remove: 'danger',
   };
 
   const handleClose = () => {
     dispatch(hideModal());
   };
-  const [invalid, setInvalid] = useState(false);
 
-  const formik = useFormik({
-    initialValues: {
-      name: '',
-    },
-    onSubmit: async (values, { resetForm }) => {
+  const submitForm = {
+    add: async (values, { resetForm }) => {
       const index = channels.findIndex((channel) => channel.name === values.name);
       if (index > -1) {
         setInvalid(true);
@@ -54,6 +57,22 @@ function ModalWindow() {
         handleClose();
       }
     },
+    remove: async () => {
+      try {
+        await api.removeChannel({ id: data.id });
+      } catch (err) {
+        toast(t('errors.network'), { type: 'error' });
+      }
+      dispatch(setActiveChannel(defaultChannelId));
+      handleClose();
+    },
+  };
+
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+    },
+    onSubmit: submitForm[type],
   });
 
   return (
@@ -63,8 +82,8 @@ function ModalWindow() {
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
-          {inputVisible && <FormLabel htmlFor="name" className="visually-hidden">{t('channels.name')}</FormLabel>}
-          {inputVisible && (
+          {inputVisible[type] && <FormLabel htmlFor="name" className="visually-hidden">{t('channels.name')}</FormLabel>}
+          {inputVisible[type] && (
           <FormGroup className="mb-3">
             <FormControl
               id="name"

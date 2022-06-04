@@ -3,9 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Dropdown, Button, ButtonGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import {
-  setActiveChannel, showModal, setModalType,
+  setActiveChannel, showModal, setModalType, setModalData,
 } from '../slices/index.js';
-import RemoveChannelModal from './removeChannelModal.jsx';
 import RenameChannelModal from './renameChannelModal.jsx';
 
 function Channels(props) {
@@ -19,8 +18,14 @@ function Channels(props) {
     dispatch(setActiveChannel(id));
   };
 
-  const showModalWindow = () => {
+  const showModalAdd = () => {
     dispatch(setModalType('add'));
+    dispatch(showModal());
+  };
+
+  const showModalRemove = (id) => () => {
+    dispatch(setModalType('remove'));
+    dispatch(setModalData({ id }));
     dispatch(showModal());
   };
 
@@ -28,7 +33,7 @@ function Channels(props) {
     <>
       <p className="lead d-flex justify-content-between align-items-center">
         {t('channels.title')}
-        <Button variant="outline" onClick={showModalWindow} className="p-1 fs-3 lh-1 text-primary">+</Button>
+        <Button variant="outline" onClick={showModalAdd} className="p-1 fs-3 lh-1 text-primary">+</Button>
       </p>
       {channels.map((channel) => {
         const { id, name, removable } = channel;
@@ -49,7 +54,9 @@ function Channels(props) {
             { removable
               && (
               <Dropdown.Menu variant="light">
-                <RemoveChannelModal id={id} />
+                <Dropdown.Item onClick={showModalRemove(id)}>
+                  {t('channels.removeButton')}
+                </Dropdown.Item>
                 <RenameChannelModal channel={channel} />
               </Dropdown.Menu>
               )}
