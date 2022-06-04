@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { messagesSelectors } from '../slices/index.js';
 
 function ChannelInfoElement() {
   const { t } = useTranslation();
@@ -9,8 +10,8 @@ function ChannelInfoElement() {
   const index = channels.findIndex((item) => item.id === activeChannelId);
   const channelName = channels[index]?.name;
 
-  const messages = useSelector((state) => state.messages.value
-    .filter((item) => item.channelId === activeChannelId));
+  const messages = useSelector(messagesSelectors.selectAll)
+    .filter((message) => message.channelId === activeChannelId);
   const count = messages.length;
 
   return (
