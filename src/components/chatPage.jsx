@@ -18,6 +18,7 @@ import {
   setActiveChannel,
   setRequestState,
   messagesSelectors,
+  channelsSelectors,
 } from '../slices/index.js';
 
 function ChatPage() {
@@ -25,7 +26,7 @@ function ChatPage() {
   const dispatch = useDispatch();
   const auth = useAuth();
   const { t } = useTranslation();
-  const channels = useSelector((state) => state.channels.value);
+  const channels = useSelector(channelsSelectors.selectAll);
   const activeChannelId = useSelector((state) => state.app.activeChannel);
   const messages = useSelector(messagesSelectors.selectAll)
     .filter((message) => message.channelId === activeChannelId);

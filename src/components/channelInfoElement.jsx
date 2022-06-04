@@ -1,11 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { messagesSelectors } from '../slices/index.js';
+import { messagesSelectors, channelsSelectors } from '../slices/index.js';
 
 function ChannelInfoElement() {
   const { t } = useTranslation();
-  const channels = useSelector((state) => state.channels.value);
+  const channels = useSelector(channelsSelectors.selectAll);
   const activeChannelId = useSelector((state) => state.app.activeChannel);
   const index = channels.findIndex((item) => item.id === activeChannelId);
   const channelName = channels[index]?.name;

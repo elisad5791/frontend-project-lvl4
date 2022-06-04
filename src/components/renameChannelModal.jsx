@@ -7,12 +7,13 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import useApi from '../hooks/useApi.jsx';
+import { channelsSelectors } from '../slices/index.js';
 
 function RenameChannelModal(props) {
   const { t } = useTranslation();
   const { channel } = props;
   const api = useApi();
-  const channels = useSelector((state) => state.channels.value);
+  const channels = useSelector(channelsSelectors.selectAll);
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);

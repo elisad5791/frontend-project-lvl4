@@ -47,7 +47,8 @@ const apiInit = (socket, store, t) => {
     toast(t('channels.removed'), { type: 'success' });
   });
   socket.on('renameChannel', (channel) => {
-    store.dispatch(renameChannel(channel));
+    const { id, name } = channel;
+    store.dispatch(renameChannel({ id, changes: { name } }));
     toast(t('channels.renamed'), { type: 'success' });
   });
 

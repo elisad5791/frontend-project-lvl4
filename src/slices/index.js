@@ -1,5 +1,5 @@
 import channelsReducer, {
-  addChannel, setChannels, removeChannel, renameChannel,
+  addChannel, setChannels, removeChannel, renameChannel, channelsSelectors,
 } from './channelsSlice.js';
 import messagesReducer, { addMessage, setMessages, messagesSelectors } from './messagesSlice.js';
 import appReducer, {
@@ -11,6 +11,7 @@ export {
   messagesReducer,
   appReducer,
   messagesSelectors,
+  channelsSelectors,
   addChannel,
   setChannels,
   removeChannel,
