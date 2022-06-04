@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import {
   setActiveChannel, showModal, setModalType, setModalData,
 } from '../slices/index.js';
-import RenameChannelModal from './renameChannelModal.jsx';
 
 function Channels(props) {
   const { t } = useTranslation();
@@ -26,6 +25,12 @@ function Channels(props) {
   const showModalRemove = (id) => () => {
     dispatch(setModalType('remove'));
     dispatch(setModalData({ id }));
+    dispatch(showModal());
+  };
+
+  const showModalRename = (channel) => () => {
+    dispatch(setModalType('rename'));
+    dispatch(setModalData({ channel }));
     dispatch(showModal());
   };
 
@@ -57,7 +62,9 @@ function Channels(props) {
                 <Dropdown.Item onClick={showModalRemove(id)}>
                   {t('channels.removeButton')}
                 </Dropdown.Item>
-                <RenameChannelModal channel={channel} />
+                <Dropdown.Item onClick={showModalRename(channel)}>
+                  {t('channels.renameButton')}
+                </Dropdown.Item>
               </Dropdown.Menu>
               )}
           </Dropdown>

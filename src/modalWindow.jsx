@@ -23,18 +23,22 @@ function ModalWindow() {
   const title = {
     add: t('channels.addChannel'),
     remove: t('channels.removeChannel'),
+    rename: t('channels.renameChannel'),
   };
   const buttonText = {
     add: t('submit'),
     remove: t('channels.removeButton'),
+    rename: t('submit'),
   };
   const inputVisible = {
     add: true,
     remove: false,
+    rename: true,
   };
   const buttonVariant = {
     add: 'primary',
     remove: 'danger',
+    rename: 'primary',
   };
 
   const handleClose = () => {
@@ -49,6 +53,21 @@ function ModalWindow() {
       } else {
         try {
           await api.addChannel(values);
+        } catch (e) {
+          toast(t('errors.network'), { type: 'error' });
+        }
+        resetForm();
+        setInvalid(false);
+        handleClose();
+      }
+    },
+    rename: async (values, { resetForm }) => {
+      const index = channels.findIndex((item) => item.name === values.name);
+      if (index > -1) {
+        setInvalid(true);
+      } else {
+        try {
+          await api.renameChannel({ id: data.channel.id, name: values.name });
         } catch (e) {
           toast(t('errors.network'), { type: 'error' });
         }
