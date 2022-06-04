@@ -32,7 +32,11 @@ function Channels(props) {
               {' '}
               {name}
             </Button>
-            { removable && <Dropdown.Toggle split variant={variant} title={t('channels.control')} disabled={requestState === 'processing'} /> }
+            { removable && (
+              <Dropdown.Toggle split variant={variant} disabled={requestState === 'processing'}>
+                <span className="visually-hidden">{t('channels.control')}</span>
+              </Dropdown.Toggle>
+            )}
             { removable
               && (
               <Dropdown.Menu variant="light">
