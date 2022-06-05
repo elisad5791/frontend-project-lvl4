@@ -3,8 +3,6 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   activeChannel: null,
-  defaultChannel: null,
-  showModal: false,
   requestState: 'idle',
 };
 
@@ -15,12 +13,6 @@ const appSlice = createSlice({
     setActiveChannel: (state, { payload }) => {
       state.activeChannel = payload;
     },
-    setDefaultChannel: (state, { payload }) => {
-      state.defaultChannel = payload;
-    },
-    setShowModal: (state, { payload }) => {
-      state.showModal = payload;
-    },
     setRequestState: (state, { payload }) => {
       state.buttonsBlocked = payload;
     },
@@ -28,6 +20,6 @@ const appSlice = createSlice({
 });
 
 export const {
-  setActiveChannel, setDefaultChannel, setShowModal, setRequestState,
+  setActiveChannel, setRequestState,
 } = appSlice.actions;
 export default appSlice.reducer;

@@ -15,7 +15,7 @@ function ModalWindow() {
   const api = useApi();
 
   const channels = useSelector(channelsSelectors.selectAll);
-  const defaultChannelId = useSelector((state) => state.app.defaultChannel);
+  const defaultChannelId = useSelector((state) => state.channels.defaultChannel);
   const show = useSelector((state) => state.modal.show);
   const type = useSelector((state) => state.modal.type);
   const data = useSelector((state) => state.modal.data);
