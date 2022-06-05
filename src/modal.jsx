@@ -13,11 +13,13 @@ function ModalWindow() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const api = useApi();
+
   const channels = useSelector(channelsSelectors.selectAll);
   const defaultChannelId = useSelector((state) => state.app.defaultChannel);
   const show = useSelector((state) => state.modal.show);
   const type = useSelector((state) => state.modal.type);
   const data = useSelector((state) => state.modal.data);
+
   const [invalid, setInvalid] = useState(false);
 
   const title = {
@@ -52,10 +54,11 @@ function ModalWindow() {
   };
 
   const handleClose = () => {
+    setInvalid(false);
     dispatch(hideModal());
   };
 
-  const makeRequest = async (arg, resetForm) => {
+  const makeRequest = async (arg, resetForm = null) => {
     try {
       await apiMethod[type](arg);
     } catch (e) {
@@ -64,12 +67,14 @@ function ModalWindow() {
     if (changeChannel[type]) {
       dispatch(setActiveChannel(defaultChannelId));
     }
-    resetForm();
-    setInvalid(false);
+    if (resetForm) {
+      resetForm();
+    }
     handleClose();
   };
 
-  const makeValidatedRequest = async (name, dataForRequest, resetForm) => {
+  const makeValidatedRequest = async (dataForRequest, resetForm) => {
+    const { name } = dataForRequest;
     const index = channels.findIndex((item) => item.name === name);
     if (index > -1) {
       setInvalid(true);
@@ -80,17 +85,17 @@ function ModalWindow() {
 
   const submitForm = {
     add: async (values, { resetForm }) => {
-      await makeValidatedRequest(values.name, values, resetForm);
+      const { name } = values;
+      await makeValidatedRequest({ name }, resetForm);
     },
     rename: async (values, { resetForm }) => {
-      await makeValidatedRequest(
-        values.name,
-        { id: data.channel.id, name: values.name },
-        resetForm,
-      );
+      const { id } = data.channel;
+      const { name } = values;
+      await makeValidatedRequest({ id, name }, resetForm);
     },
-    remove: async (values, { resetForm }) => {
-      await makeRequest({ id: data.id }, resetForm);
+    remove: async () => {
+      const { id } = data;
+      await makeRequest({ id });
     },
   };
 
@@ -108,20 +113,23 @@ function ModalWindow() {
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
-          {inputVisible[type] && <FormLabel htmlFor="name" className="visually-hidden">{t('channels.name')}</FormLabel>}
-          {inputVisible[type] && (
-          <FormGroup className="mb-3">
-            <FormControl
-              id="name"
-              name="name"
-              type="text"
-              autoFocus
-              onChange={formik.handleChange}
-              value={formik.values.name}
-            />
-          </FormGroup>
-          )}
-          {invalid && <div>{t('errors.channelExists')}</div>}
+          {inputVisible[type]
+            && (
+            <>
+              <FormLabel htmlFor="name" className="visually-hidden">{t('channels.name')}</FormLabel>
+              <FormGroup className="mb-3">
+                <FormControl
+                  id="name"
+                  name="name"
+                  type="text"
+                  autoFocus
+                  onChange={formik.handleChange}
+                  value={formik.values.name}
+                />
+              </FormGroup>
+            </>
+            )}
+          {invalid && <div className="text-danger mb-3">{t('errors.channelExists')}</div>}
           <Button variant={buttonVariant[type]} type="submit">
             {buttonText[type]}
           </Button>
