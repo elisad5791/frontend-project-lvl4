@@ -1,9 +1,15 @@
 import channelsReducer, {
-  addChannel, setChannels, removeChannel, renameChannel, channelsSelectors, setDefaultChannel,
+  addChannel,
+  setChannels,
+  removeChannel,
+  renameChannel,
+  channelsSelectors,
+  setDefaultChannel,
+  setActiveChannel,
 } from './channelsSlice.js';
 import messagesReducer, { addMessage, setMessages, messagesSelectors } from './messagesSlice.js';
 import appReducer, {
-  setActiveChannel, setRequestState,
+  setRequestState,
 } from './appSlice.js';
 import modalReducer, {
   showModal, hideModal, setModalType, setModalData,
@@ -21,9 +27,9 @@ export {
   removeChannel,
   renameChannel,
   setDefaultChannel,
+  setActiveChannel,
   addMessage,
   setMessages,
-  setActiveChannel,
   setRequestState,
   showModal,
   hideModal,

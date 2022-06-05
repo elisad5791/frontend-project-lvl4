@@ -28,7 +28,7 @@ function ChatPage() {
   const auth = useAuth();
   const { t } = useTranslation();
   const channels = useSelector(channelsSelectors.selectAll);
-  const activeChannelId = useSelector((state) => state.app.activeChannel);
+  const activeChannelId = useSelector((state) => state.channels.activeChannel);
   const messages = useSelector(messagesSelectors.selectAll)
     .filter((message) => message.channelId === activeChannelId);
 

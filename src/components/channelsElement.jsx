@@ -9,7 +9,7 @@ import {
 function Channels(props) {
   const { t } = useTranslation();
   const { channels } = props;
-  const activeChannel = useSelector((state) => state.app.activeChannel);
+  const activeChannel = useSelector((state) => state.channels.activeChannel);
   const dispatch = useDispatch();
   const requestState = useSelector((state) => state.app.requestState);
 

@@ -5,6 +5,7 @@ const initialState = {
   ids: [],
   entities: {},
   defaultChannel: null,
+  activeChannel: null,
 };
 
 const channelsSlice = createSlice({
@@ -16,11 +17,12 @@ const channelsSlice = createSlice({
     removeChannel: channelsAdapter.removeOne,
     renameChannel: channelsAdapter.updateOne,
     setDefaultChannel: (state, { payload }) => ({ ...state, defaultChannel: payload }),
+    setActiveChannel: (state, { payload }) => ({ ...state, activeChannel: payload }),
   },
 });
 
 export const {
-  addChannel, setChannels, removeChannel, renameChannel, setDefaultChannel,
+  addChannel, setChannels, removeChannel, renameChannel, setDefaultChannel, setActiveChannel,
 } = channelsSlice.actions;
 export const channelsSelectors = channelsAdapter.getSelectors((state) => state.channels);
 export default channelsSlice.reducer;

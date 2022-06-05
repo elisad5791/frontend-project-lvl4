@@ -1,8 +1,6 @@
-/* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  activeChannel: null,
   requestState: 'idle',
 };
 
@@ -10,16 +8,9 @@ const appSlice = createSlice({
   name: 'app',
   initialState,
   reducers: {
-    setActiveChannel: (state, { payload }) => {
-      state.activeChannel = payload;
-    },
-    setRequestState: (state, { payload }) => {
-      state.buttonsBlocked = payload;
-    },
+    setRequestState: (state, { payload }) => ({ ...state, requestState: payload }),
   },
 });
 
-export const {
-  setActiveChannel, setRequestState,
-} = appSlice.actions;
+export const { setRequestState } = appSlice.actions;
 export default appSlice.reducer;

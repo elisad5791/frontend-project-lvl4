@@ -14,7 +14,7 @@ function MessageForm() {
   const auth = useAuth();
   filter.loadDictionary();
   const { t } = useTranslation();
-  const activeChannelId = useSelector((state) => state.app.activeChannel);
+  const activeChannelId = useSelector((state) => state.channels.activeChannel);
   const api = useApi();
   const requestState = useSelector((state) => state.app.requestState);
 

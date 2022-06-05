@@ -6,7 +6,7 @@ import { messagesSelectors, channelsSelectors } from '../slices/index.js';
 function ChannelInfoElement() {
   const { t } = useTranslation();
   const channels = useSelector(channelsSelectors.selectAll);
-  const activeChannelId = useSelector((state) => state.app.activeChannel);
+  const activeChannelId = useSelector((state) => state.channels.activeChannel);
   const index = channels.findIndex((item) => item.id === activeChannelId);
   const channelName = channels[index]?.name;
 
