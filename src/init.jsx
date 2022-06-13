@@ -28,7 +28,7 @@ const createPromise = (socket, type, data) => new Promise((resolve, reject) => {
   socket.emit(type, data, (response) => {
     if (response.status === 'ok') {
       resolve(response.data);
-    } 
+    }
     reject();
   });
 });
