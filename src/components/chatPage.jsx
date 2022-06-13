@@ -13,11 +13,9 @@ import MessageForm from './messageForm.jsx';
 import ModalWindow from '../modal.jsx';
 import useAuth from '../hooks/useAuth.jsx';
 import {
-  setChannels,
-  setMessages,
-  setDefaultChannel,
-  setActiveChannel,
-  setRequestState,
+  channelsActions,
+  appActions,
+  messagesActions,
   messagesSelectors,
   channelsSelectors,
 } from '../slices/index.js';
@@ -34,23 +32,23 @@ function ChatPage() {
 
   useEffect(() => {
     const getData = async () => {
-      dispatch(setRequestState('processing'));
+      dispatch(appActions.setRequestState('processing'));
       try {
         const token = auth.getToken();
         const headers = { Authorization: `Bearer ${token}` };
         const { data } = await axios.get(routes.dataPath(), { headers });
         batch(() => {
-          dispatch(setChannels(data.channels));
-          dispatch(setMessages(data.messages));
-          dispatch(setActiveChannel(data.currentChannelId));
-          dispatch(setDefaultChannel(data.currentChannelId));
+          dispatch(channelsActions.setChannels(data.channels));
+          dispatch(messagesActions.setMessages(data.messages));
+          dispatch(channelsActions.setActiveChannel(data.currentChannelId));
+          dispatch(channelsActions.setDefaultChannel(data.currentChannelId));
         });
       } catch (e) {
         toast(t('errors.network'), { type: 'error' });
         auth.logout();
         history.replace({ pathname: routes.loginPagePath() });
       }
-      dispatch(setRequestState('idle'));
+      dispatch(appActions.setRequestState('idle'));
     };
     getData();
   }, []);

@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import useApi from './hooks/useApi.jsx';
-import { channelsSelectors, hideModal, setActiveChannel } from './slices/index.js';
+import { channelsSelectors, modalActions, channelsActions } from './slices/index.js';
 
 function ModalWindow() {
   const { t } = useTranslation();
@@ -55,7 +55,7 @@ function ModalWindow() {
 
   const handleClose = () => {
     setInvalid(false);
-    dispatch(hideModal());
+    dispatch(modalActions.hideModal());
   };
 
   const makeRequest = async (arg, resetForm = null) => {
@@ -65,7 +65,7 @@ function ModalWindow() {
       toast(t('errors.network'), { type: 'error' });
     }
     if (changeChannel[type]) {
-      dispatch(setActiveChannel(defaultChannelId));
+      dispatch(channelsActions.setActiveChannel(defaultChannelId));
     }
     if (resetForm) {
       resetForm();

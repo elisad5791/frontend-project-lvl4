@@ -8,7 +8,7 @@ import {
   Form, Button, Card, Image, Row, Col,
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { setRequestState } from '../slices/index.js';
+import { appActions } from '../slices/index.js';
 import imgLogin from '../../assets/chat.png';
 import useAuth from '../hooks/useAuth.jsx';
 import routes from '../routes.js';
@@ -32,7 +32,7 @@ function LoginPage() {
       password: '',
     },
     onSubmit: async (values) => {
-      dispatch(setRequestState('processing'));
+      dispatch(appActions.setRequestState('processing'));
       try {
         await auth.login(values);
         setInvalid(false);
@@ -45,7 +45,7 @@ function LoginPage() {
           toast(t('errors.network'), { type: 'error' });
         }
       }
-      dispatch(setRequestState('idle'));
+      dispatch(appActions.setRequestState('idle'));
     },
   });
   return (

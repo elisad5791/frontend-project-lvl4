@@ -1,38 +1,22 @@
-import channelsReducer, {
-  addChannel,
-  setChannels,
-  removeChannel,
-  renameChannel,
-  channelsSelectors,
-  setDefaultChannel,
-  setActiveChannel,
-} from './channelsSlice.js';
-import messagesReducer, { addMessage, setMessages, messagesSelectors } from './messagesSlice.js';
-import appReducer, {
-  setRequestState,
-} from './appSlice.js';
-import modalReducer, {
-  showModal, hideModal, setModalType, setModalData,
-} from './modalSlice.js';
+import { combineReducers } from '@reduxjs/toolkit';
+import channelsReducer, { actions as channelsActions, channelsSelectors } from './channelsSlice.js';
+import messagesReducer, { actions as messagesActions, messagesSelectors } from './messagesSlice.js';
+import appReducer, { actions as appActions } from './appSlice.js';
+import modalReducer, { actions as modalActions } from './modalSlice.js';
+
+const reducer = combineReducers({
+  channels: channelsReducer,
+  messages: messagesReducer,
+  app: appReducer,
+  modal: modalReducer,
+});
 
 export {
-  channelsReducer,
-  messagesReducer,
-  appReducer,
-  modalReducer,
+  reducer,
   messagesSelectors,
   channelsSelectors,
-  addChannel,
-  setChannels,
-  removeChannel,
-  renameChannel,
-  setDefaultChannel,
-  setActiveChannel,
-  addMessage,
-  setMessages,
-  setRequestState,
-  showModal,
-  hideModal,
-  setModalType,
-  setModalData,
+  channelsActions,
+  messagesActions,
+  appActions,
+  modalActions,
 };

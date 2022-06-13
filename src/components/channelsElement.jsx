@@ -2,9 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dropdown, Button, ButtonGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import {
-  setActiveChannel, showModal, setModalType, setModalData,
-} from '../slices/index.js';
+import { channelsActions, modalActions } from '../slices/index.js';
 
 function Channels(props) {
   const { t } = useTranslation();
@@ -14,24 +12,24 @@ function Channels(props) {
   const requestState = useSelector((state) => state.app.requestState);
 
   const handleClick = (id) => () => {
-    dispatch(setActiveChannel(id));
+    dispatch(channelsActions.setActiveChannel(id));
   };
 
   const showModalAdd = () => {
-    dispatch(setModalType('add'));
-    dispatch(showModal());
+    dispatch(modalActions.setModalType('add'));
+    dispatch(modalActions.showModal());
   };
 
   const showModalRemove = (id) => () => {
-    dispatch(setModalType('remove'));
-    dispatch(setModalData({ id }));
-    dispatch(showModal());
+    dispatch(modalActions.setModalType('remove'));
+    dispatch(modalActions.setModalData({ id }));
+    dispatch(modalActions.showModal());
   };
 
   const showModalRename = (channel) => () => {
-    dispatch(setModalType('rename'));
-    dispatch(setModalData({ channel }));
-    dispatch(showModal());
+    dispatch(modalActions.setModalType('rename'));
+    dispatch(modalActions.setModalData({ channel }));
+    dispatch(modalActions.showModal());
   };
 
   return (

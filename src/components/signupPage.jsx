@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   Form, Button, Card, Image, Row, Col,
 } from 'react-bootstrap';
-import { setRequestState } from '../slices/index.js';
+import { appActions } from '../slices/index.js';
 import imgSignup from '../../assets/auth.png';
 import useAuth from '../hooks/useAuth.jsx';
 import routes from '../routes.js';
@@ -46,7 +46,7 @@ function SignupPage() {
         .oneOf([Yup.ref('password'), null], t('errors.confirmation')),
     }),
     onSubmit: async (values) => {
-      dispatch(setRequestState('processing'));
+      dispatch(appActions.setRequestState('processing'));
       try {
         await auth.signup(values);
         setInvalid(false);
@@ -59,7 +59,7 @@ function SignupPage() {
           toast(t('errors.network'), { type: 'error' });
         }
       }
-      dispatch(setRequestState('idle'));
+      dispatch(appActions.setRequestState('idle'));
     },
   });
 

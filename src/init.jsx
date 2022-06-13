@@ -10,15 +10,9 @@ import AuthProvider from './components/authProvider.jsx';
 import translation from './locales/ru.js';
 import apiContext from './contexts/apiContext.jsx';
 import {
-  addMessage,
-  addChannel,
-  removeChannel,
-  renameChannel,
-  setActiveChannel,
-  channelsReducer,
-  messagesReducer,
-  appReducer,
-  modalReducer,
+  messagesActions,
+  channelsActions,
+  reducer,
 } from './slices/index.js';
 
 const createPromise = (socket, type, data) => new Promise((resolve, reject) => {
@@ -35,20 +29,20 @@ const createPromise = (socket, type, data) => new Promise((resolve, reject) => {
 
 const apiInit = (socket, store, t) => {
   socket.on('newMessage', (message) => {
-    store.dispatch(addMessage(message));
+    store.dispatch(messagesActions.addMessage(message));
   });
   socket.on('newChannel', (channel) => {
-    store.dispatch(addChannel(channel));
-    store.dispatch(setActiveChannel(channel.id));
+    store.dispatch(channelsActions.addChannel(channel));
+    store.dispatch(channelsActions.setActiveChannel(channel.id));
     toast(t('channels.created'), { type: 'success' });
   });
   socket.on('removeChannel', ({ id }) => {
-    store.dispatch(removeChannel(id));
+    store.dispatch(channelsActions.removeChannel(id));
     toast(t('channels.removed'), { type: 'success' });
   });
   socket.on('renameChannel', (channel) => {
     const { id, name } = channel;
-    store.dispatch(renameChannel({ id, changes: { name } }));
+    store.dispatch(channelsActions.renameChannel({ id, changes: { name } }));
     toast(t('channels.renamed'), { type: 'success' });
   });
 
@@ -86,14 +80,7 @@ const init = async (socket) => {
       },
     });
 
-  const store = configureStore({
-    reducer: {
-      channels: channelsReducer,
-      messages: messagesReducer,
-      app: appReducer,
-      modal: modalReducer,
-    },
-  });
+  const store = configureStore({ reducer });
 
   const api = apiInit(socket, store, i18nextInstance.t);
 
