@@ -7,8 +7,8 @@ import { useTranslation } from 'react-i18next';
 import {
   Form, Button, Card, Image, Row, Col,
 } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import { appActions } from '../slices/index.js';
+import { useDispatch } from 'react-redux';
+import { modalActions } from '../slices/index.js';
 import imgLogin from '../../assets/chat.png';
 import useAuth from '../hooks/useAuth.jsx';
 import routes from '../routes.js';
@@ -19,7 +19,6 @@ function LoginPage() {
   const [invalid, setInvalid] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
-  const requestState = useSelector((state) => state.app.requestState);
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -32,7 +31,7 @@ function LoginPage() {
       password: '',
     },
     onSubmit: async (values) => {
-      dispatch(appActions.setRequestState('processing'));
+      dispatch(modalActions.showModal({ type: 'processing' }));
       try {
         await auth.login(values);
         setInvalid(false);
@@ -45,7 +44,7 @@ function LoginPage() {
           toast(t('errors.network'), { type: 'error' });
         }
       }
-      dispatch(appActions.setRequestState('idle'));
+      dispatch(modalActions.hideModal());
     },
   });
   return (
@@ -82,7 +81,7 @@ function LoginPage() {
 
               {invalid && <div className="text-danger mb-3">{t('errors.auth')}</div>}
 
-              <Button variant="primary" type="submit" disabled={requestState === 'processing'}>
+              <Button variant="primary" type="submit">
                 {t('auth.enter')}
               </Button>
               <ToastContainer />

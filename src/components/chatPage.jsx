@@ -14,7 +14,7 @@ import getModal from './modals/index.js';
 import useAuth from '../hooks/useAuth.jsx';
 import {
   channelsActions,
-  appActions,
+  modalActions,
   messagesActions,
   messagesSelectors,
   channelsSelectors,
@@ -34,7 +34,7 @@ function ChatPage() {
 
   useEffect(() => {
     const getData = async () => {
-      dispatch(appActions.setRequestState('processing'));
+      dispatch(modalActions.showModal({ type: 'processing' }));
       try {
         const token = auth.getToken();
         const headers = { Authorization: `Bearer ${token}` };
@@ -50,7 +50,7 @@ function ChatPage() {
         auth.logout();
         history.replace({ pathname: routes.loginPagePath() });
       }
-      dispatch(appActions.setRequestState('idle'));
+      dispatch(modalActions.hideModal());
     };
     getData();
   }, []);

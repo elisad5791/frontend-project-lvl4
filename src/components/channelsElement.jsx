@@ -9,7 +9,6 @@ function Channels(props) {
   const { channels } = props;
   const activeChannel = useSelector((state) => state.channels.activeChannel);
   const dispatch = useDispatch();
-  const requestState = useSelector((state) => state.app.requestState);
 
   const handleClick = (id) => () => {
     dispatch(channelsActions.setActiveChannel(id));
@@ -39,27 +38,26 @@ function Channels(props) {
         const variant = active ? 'primary' : 'secondary';
         return (
           <Dropdown as={ButtonGroup} className="w-100 mb-2" key={id}>
-            <Button variant={variant} className="w-100 text-start" onClick={handleClick(id)} disabled={requestState === 'processing'}>
+            <Button variant={variant} className="w-100 text-start" onClick={handleClick(id)}>
               #
               {' '}
               {name}
             </Button>
-            { removable && (
-              <Dropdown.Toggle split variant={variant} disabled={requestState === 'processing'}>
-                <span className="visually-hidden">{t('channels.control')}</span>
-              </Dropdown.Toggle>
+            {removable && (
+              <>
+                <Dropdown.Toggle split variant={variant}>
+                  <span className="visually-hidden">{t('channels.control')}</span>
+                </Dropdown.Toggle>
+                <Dropdown.Menu variant="light">
+                  <Dropdown.Item onClick={showModalRemove(id)}>
+                    {t('channels.removeButton')}
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={showModalRename(channel)}>
+                    {t('channels.renameButton')}
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </>
             )}
-            { removable
-              && (
-              <Dropdown.Menu variant="light">
-                <Dropdown.Item onClick={showModalRemove(id)}>
-                  {t('channels.removeButton')}
-                </Dropdown.Item>
-                <Dropdown.Item onClick={showModalRename(channel)}>
-                  {t('channels.renameButton')}
-                </Dropdown.Item>
-              </Dropdown.Menu>
-              )}
           </Dropdown>
         );
       })}
