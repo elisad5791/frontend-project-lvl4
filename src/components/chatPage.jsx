@@ -10,7 +10,7 @@ import MessagesElement from './messagesElement.jsx';
 import ChannelsElement from './channelsElement.jsx';
 import ChannelInfoElement from './channelInfoElement.jsx';
 import MessageForm from './messageForm.jsx';
-import ModalWindow from '../modal.jsx';
+import getModal from './modals/index.js';
 import useAuth from '../hooks/useAuth.jsx';
 import {
   channelsActions,
@@ -29,6 +29,8 @@ function ChatPage() {
   const activeChannelId = useSelector((state) => state.channels.activeChannel);
   const messages = useSelector(messagesSelectors.selectAll)
     .filter((message) => message.channelId === activeChannelId);
+  const modalType = useSelector((state) => state.modal.type);
+  const ModalWindow = getModal(modalType);
 
   useEffect(() => {
     const getData = async () => {
