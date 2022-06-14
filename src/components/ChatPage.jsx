@@ -6,10 +6,10 @@ import axios from 'axios';
 import { Container, Row, Col } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import routes from '../routes.js';
-import MessagesElement from './messagesElement.jsx';
-import ChannelsElement from './channelsElement.jsx';
-import ChannelInfoElement from './channelInfoElement.jsx';
-import MessageForm from './messageForm.jsx';
+import MessagesElement from './MessagesElement.jsx';
+import ChannelsElement from './ChannelsElement.jsx';
+import ChannelInfoElement from './ChannelInfoElement.jsx';
+import MessageForm from './MessageForm.jsx';
 import getModal from './modals/index.js';
 import useAuth from '../hooks/useAuth.jsx';
 import {

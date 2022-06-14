@@ -5,8 +5,8 @@ import i18next from 'i18next';
 import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import { toast } from 'react-toastify';
 import { configureStore } from '@reduxjs/toolkit';
-import App from './components/app.jsx';
-import AuthProvider from './components/authProvider.jsx';
+import App from './components/App.jsx';
+import AuthProvider from './components/AuthProvider.jsx';
 import translation from './locales/ru.js';
 import apiContext from './contexts/apiContext.jsx';
 import {

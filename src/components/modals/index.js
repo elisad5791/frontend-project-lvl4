@@ -1,14 +1,14 @@
-import addChannel from './addChannel.jsx';
-import removeChannel from './removeChannel.jsx';
-import renameChannel from './renameChannel.jsx';
-import loaderIcon from './loaderIcon.jsx';
+import AddChannel from './AddChannel.jsx';
+import RemoveChannel from './RemoveChannel.jsx';
+import RenameChannel from './RenameChannel.jsx';
+import LoaderIcon from './LoaderIcon.jsx';
 
 const getModal = (modalName) => {
   const modals = {
-    adding: addChannel,
-    removing: removeChannel,
-    renaming: renameChannel,
-    processing: loaderIcon,
+    adding: AddChannel,
+    removing: RemoveChannel,
+    renaming: RenameChannel,
+    processing: LoaderIcon,
   };
   return modals[modalName];
 };
