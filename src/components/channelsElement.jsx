@@ -16,20 +16,15 @@ function Channels(props) {
   };
 
   const showModalAdd = () => {
-    dispatch(modalActions.setModalType('adding'));
-    dispatch(modalActions.showModal());
+    dispatch(modalActions.showModal({ type: 'adding' }));
   };
 
   const showModalRemove = (id) => () => {
-    dispatch(modalActions.setModalType('removing'));
-    dispatch(modalActions.setModalData({ id }));
-    dispatch(modalActions.showModal());
+    dispatch(modalActions.showModal({ type: 'removing', data: id }));
   };
 
   const showModalRename = (channel) => () => {
-    dispatch(modalActions.setModalType('renaming'));
-    dispatch(modalActions.setModalData({ channel }));
-    dispatch(modalActions.showModal());
+    dispatch(modalActions.showModal({ type: 'renaming', data: channel }));
   };
 
   return (

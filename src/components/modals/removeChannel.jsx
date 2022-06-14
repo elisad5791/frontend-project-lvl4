@@ -14,7 +14,7 @@ function RemoveChannel() {
   const api = useApi();
   const defaultChannelId = useSelector((state) => state.channels.defaultChannel);
 
-  const data = useSelector((state) => state.modal.data);
+  const id = useSelector((state) => state.modal.data);
   const show = useSelector((state) => state.modal.show);
 
   const handleClose = () => {
@@ -24,7 +24,7 @@ function RemoveChannel() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.removeChannel(data);
+      await api.removeChannel({ id });
     } catch (err) {
       toast(t('errors.network'), { type: 'error' });
     }

@@ -17,7 +17,7 @@ function RenameChannel() {
 
   const [invalid, setInvalid] = useState(false);
   const show = useSelector((state) => state.modal.show);
-  const data = useSelector((state) => state.modal.data);
+  const channel = useSelector((state) => state.modal.data);
 
   const handleClose = () => {
     setInvalid(false);
@@ -34,7 +34,6 @@ function RenameChannel() {
         setInvalid(true);
       } else {
         try {
-          const { channel } = data;
           await api.renameChannel({ id: channel.id, name: values.name });
         } catch (e) {
           toast(t('errors.network'), { type: 'error' });
