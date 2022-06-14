@@ -16,7 +16,7 @@ function RenameChannel() {
   const channels = useSelector(channelsSelectors.selectAll);
 
   const [invalid, setInvalid] = useState(false);
-  const show = useSelector((state) => state.modal.show);
+  const isOpen = useSelector((state) => state.modal.isOpen);
   const channel = useSelector((state) => state.modal.data);
 
   const handleClose = () => {
@@ -46,7 +46,7 @@ function RenameChannel() {
   });
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={isOpen} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>{t('channels.renameChannel')}</Modal.Title>
       </Modal.Header>

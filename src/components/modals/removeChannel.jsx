@@ -15,7 +15,7 @@ function RemoveChannel() {
   const defaultChannelId = useSelector((state) => state.channels.defaultChannel);
 
   const id = useSelector((state) => state.modal.data);
-  const show = useSelector((state) => state.modal.show);
+  const isOpen = useSelector((state) => state.modal.isOpen);
 
   const handleClose = () => {
     dispatch(modalActions.hideModal());
@@ -33,7 +33,7 @@ function RemoveChannel() {
   };
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={isOpen} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>{t('channels.removeChannel')}</Modal.Title>
       </Modal.Header>

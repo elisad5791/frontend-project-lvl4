@@ -16,7 +16,7 @@ function AddChannel() {
   const channels = useSelector(channelsSelectors.selectAll);
 
   const [invalid, setInvalid] = useState(false);
-  const show = useSelector((state) => state.modal.show);
+  const isOpen = useSelector((state) => state.modal.isOpen);
 
   const handleClose = () => {
     setInvalid(false);
@@ -45,7 +45,7 @@ function AddChannel() {
   });
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={isOpen} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>{t('channels.addChannel')}</Modal.Title>
       </Modal.Header>
