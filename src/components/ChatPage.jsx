@@ -13,9 +13,7 @@ import MessageForm from './MessageForm.jsx';
 import getModal from './modals/index.js';
 import useAuth from '../hooks/useAuth.jsx';
 import {
-  channelsActions,
-  modalActions,
-  messagesActions,
+  actions,
   messagesSelectors,
   channelsSelectors,
 } from '../slices/index.js';
@@ -34,23 +32,23 @@ function ChatPage() {
 
   useEffect(() => {
     const getData = async () => {
-      dispatch(modalActions.showModal({ type: 'processing' }));
+      dispatch(actions.showModal({ type: 'processing' }));
       try {
         const token = auth.getToken();
         const headers = { Authorization: `Bearer ${token}` };
         const { data } = await axios.get(routes.dataPath(), { headers });
         batch(() => {
-          dispatch(channelsActions.setChannels(data.channels));
-          dispatch(messagesActions.setMessages(data.messages));
-          dispatch(channelsActions.setActiveChannel(data.currentChannelId));
-          dispatch(channelsActions.setDefaultChannel(data.currentChannelId));
+          dispatch(actions.setChannels(data.channels));
+          dispatch(actions.setMessages(data.messages));
+          dispatch(actions.setActiveChannel(data.currentChannelId));
+          dispatch(actions.setDefaultChannel(data.currentChannelId));
         });
       } catch (e) {
         toast(t('errors.network'), { type: 'error' });
         auth.logout();
         history.replace({ pathname: routes.loginPagePath() });
       }
-      dispatch(modalActions.hideModal());
+      dispatch(actions.hideModal());
     };
     getData();
   }, []);

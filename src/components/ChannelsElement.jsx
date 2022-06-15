@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dropdown, Button, ButtonGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { channelsActions, modalActions } from '../slices/index.js';
+import { actions } from '../slices/index.js';
 
 function Channels(props) {
   const { t } = useTranslation();
@@ -11,19 +11,19 @@ function Channels(props) {
   const dispatch = useDispatch();
 
   const handleClick = (id) => () => {
-    dispatch(channelsActions.setActiveChannel(id));
+    dispatch(actions.setActiveChannel(id));
   };
 
   const showModalAdd = () => {
-    dispatch(modalActions.showModal({ type: 'adding' }));
+    dispatch(actions.showModal({ type: 'adding' }));
   };
 
   const showModalRemove = (id) => () => {
-    dispatch(modalActions.showModal({ type: 'removing', data: id }));
+    dispatch(actions.showModal({ type: 'removing', data: id }));
   };
 
   const showModalRename = (channel) => () => {
-    dispatch(modalActions.showModal({ type: 'renaming', data: channel }));
+    dispatch(actions.showModal({ type: 'renaming', data: channel }));
   };
 
   return (

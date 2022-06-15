@@ -8,7 +8,7 @@ import {
   Form, Button, Card, Image, Row, Col,
 } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { modalActions } from '../slices/index.js';
+import { actions } from '../slices/index.js';
 import imgLogin from '../../assets/chat.png';
 import useAuth from '../hooks/useAuth.jsx';
 import routes from '../routes.js';
@@ -31,7 +31,7 @@ function LoginPage() {
       password: '',
     },
     onSubmit: async (values) => {
-      dispatch(modalActions.showModal({ type: 'processing' }));
+      dispatch(actions.showModal({ type: 'processing' }));
       try {
         await auth.login(values);
         setInvalid(false);
@@ -44,7 +44,7 @@ function LoginPage() {
           toast(t('errors.network'), { type: 'error' });
         }
       }
-      dispatch(modalActions.hideModal());
+      dispatch(actions.hideModal());
     },
   });
   return (

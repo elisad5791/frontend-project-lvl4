@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import useApi from '../../hooks/useApi.jsx';
-import { modalActions, channelsSelectors } from '../../slices/index.js';
+import { actions, channelsSelectors } from '../../slices/index.js';
 
 function RenameChannel() {
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ function RenameChannel() {
 
   const handleClose = () => {
     setInvalid(false);
-    dispatch(modalActions.hideModal());
+    dispatch(actions.hideModal());
   };
 
   const formik = useFormik({

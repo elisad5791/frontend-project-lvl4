@@ -9,11 +9,15 @@ const reducer = combineReducers({
   modal: modalReducer,
 });
 
+const actions = {
+  ...messagesActions,
+  ...channelsActions,
+  ...modalActions,
+};
+
 export {
   reducer,
   messagesSelectors,
   channelsSelectors,
-  channelsActions,
-  messagesActions,
-  modalActions,
+  actions,
 };

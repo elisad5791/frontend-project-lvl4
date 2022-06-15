@@ -12,7 +12,7 @@ import {
 import imgSignup from '../../assets/auth.png';
 import useAuth from '../hooks/useAuth.jsx';
 import routes from '../routes.js';
-import { modalActions } from '../slices/index.js';
+import { actions } from '../slices/index.js';
 
 function SignupPage() {
   const { t } = useTranslation();
@@ -45,7 +45,7 @@ function SignupPage() {
         .oneOf([Yup.ref('password'), null], t('errors.confirmation')),
     }),
     onSubmit: async (values) => {
-      dispatch(modalActions.showModal({ type: 'processing' }));
+      dispatch(actions.showModal({ type: 'processing' }));
       try {
         await auth.signup(values);
         setInvalid(false);
@@ -58,7 +58,7 @@ function SignupPage() {
           toast(t('errors.network'), { type: 'error' });
         }
       }
-      dispatch(modalActions.hideModal());
+      dispatch(actions.hideModal());
     },
   });
 

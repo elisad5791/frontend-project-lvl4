@@ -5,7 +5,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import { channelsActions, modalActions } from '../../slices/index.js';
+import { actions } from '../../slices/index.js';
 import useApi from '../../hooks/useApi.jsx';
 
 function RemoveChannel() {
@@ -18,7 +18,7 @@ function RemoveChannel() {
   const isOpen = useSelector((state) => state.modal.isOpen);
 
   const handleClose = () => {
-    dispatch(modalActions.hideModal());
+    dispatch(actions.hideModal());
   };
 
   const handleSubmit = async (e) => {
@@ -28,7 +28,7 @@ function RemoveChannel() {
     } catch (err) {
       toast(t('errors.network'), { type: 'error' });
     }
-    dispatch(channelsActions.setActiveChannel(defaultChannelId));
+    dispatch(actions.setActiveChannel(defaultChannelId));
     handleClose();
   };
 
