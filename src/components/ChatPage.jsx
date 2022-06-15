@@ -12,20 +12,16 @@ import ChannelInfoElement from './ChannelInfoElement.jsx';
 import MessageForm from './MessageForm.jsx';
 import getModal from './modals/index.js';
 import useAuth from '../hooks/useAuth.jsx';
-import {
-  actions,
-  messagesSelectors,
-  channelsSelectors,
-} from '../slices/index.js';
+import { actions, selectors } from '../slices/index.js';
 
 function ChatPage() {
   const history = useHistory();
   const dispatch = useDispatch();
   const auth = useAuth();
   const { t } = useTranslation();
-  const channels = useSelector(channelsSelectors.selectAll);
+  const channels = useSelector(selectors.channels.selectAll);
   const activeChannelId = useSelector((state) => state.channels.activeChannel);
-  const messages = useSelector(messagesSelectors.selectAll)
+  const messages = useSelector(selectors.messages.selectAll)
     .filter((message) => message.channelId === activeChannelId);
   const modalType = useSelector((state) => state.modal.type);
   const ModalWindow = getModal(modalType);

@@ -15,9 +15,13 @@ const actions = {
   ...modalActions,
 };
 
+const selectors = {
+  channels: channelsSelectors,
+  messages: messagesSelectors,
+};
+
 export {
   reducer,
-  messagesSelectors,
-  channelsSelectors,
+  selectors,
   actions,
 };

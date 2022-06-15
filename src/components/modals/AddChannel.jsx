@@ -7,13 +7,13 @@ import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import useApi from '../../hooks/useApi.jsx';
-import { actions, channelsSelectors } from '../../slices/index.js';
+import { actions, selectors } from '../../slices/index.js';
 
 function AddChannel() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const api = useApi();
-  const channels = useSelector(channelsSelectors.selectAll);
+  const channels = useSelector(selectors.channels.selectAll);
 
   const [invalid, setInvalid] = useState(false);
   const isOpen = useSelector((state) => state.modal.isOpen);
