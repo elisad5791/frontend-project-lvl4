@@ -8,6 +8,7 @@ import {
   Form, Button, Card, Image, Row, Col,
 } from 'react-bootstrap';
 import imgLogin from '../../assets/chat.png';
+import imgSpinner from '../../assets/spinner.gif';
 import useAuth from '../hooks/useAuth.jsx';
 import routes from '../routes.js';
 
@@ -80,7 +81,7 @@ function LoginPage() {
               {invalid && <div className="text-danger mb-3">{t('errors.auth')}</div>}
 
               <Button variant="primary" type="submit" disabled={processing}>
-                {t('auth.enter')}
+                {processing ? <Image src={imgSpinner} width={16} height={16} /> : t('auth.enter')}
               </Button>
               <ToastContainer />
             </Form>
