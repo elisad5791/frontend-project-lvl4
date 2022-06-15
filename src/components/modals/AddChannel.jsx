@@ -17,6 +17,7 @@ function AddChannel() {
 
   const [invalid, setInvalid] = useState(false);
   const isOpen = useSelector((state) => state.modal.isOpen);
+  const [processing, setProcessing] = useState(false);
 
   const handleClose = () => {
     setInvalid(false);
@@ -32,11 +33,13 @@ function AddChannel() {
       if (index > -1) {
         setInvalid(true);
       } else {
+        setProcessing(true);
         try {
           await api.addChannel(values);
         } catch (e) {
           toast(t('errors.network'), { type: 'error' });
         }
+        setProcessing(false);
         resetForm();
         setInvalid(false);
         handleClose();
@@ -63,7 +66,7 @@ function AddChannel() {
             />
           </FormGroup>
           {invalid && <div className="text-danger mb-3">{t('errors.channelExists')}</div>}
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit" disabled={processing}>
             {t('submit')}
           </Button>
         </Form>
