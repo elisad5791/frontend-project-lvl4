@@ -18,6 +18,7 @@ function RenameChannel() {
   const [invalid, setInvalid] = useState(false);
   const isOpen = useSelector((state) => state.modal.isOpen);
   const channel = useSelector((state) => state.modal.data);
+  const [processing, setProcessing] = useState(false);
 
   const handleClose = () => {
     setInvalid(false);
@@ -33,11 +34,13 @@ function RenameChannel() {
       if (index > -1) {
         setInvalid(true);
       } else {
+        setProcessing(true);
         try {
           await api.renameChannel({ id: channel.id, name: values.name });
         } catch (e) {
           toast(t('errors.network'), { type: 'error' });
         }
+        setProcessing(false);
         resetForm();
         setInvalid(false);
         handleClose();
@@ -64,7 +67,7 @@ function RenameChannel() {
             />
           </FormGroup>
           {invalid && <div className="text-danger mb-3">{t('errors.channelExists')}</div>}
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit" disabled={processing}>
             {t('submit')}
           </Button>
         </Form>

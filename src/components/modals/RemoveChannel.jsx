@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Modal, Button, Form,
 } from 'react-bootstrap';
@@ -16,6 +16,7 @@ function RemoveChannel() {
 
   const id = useSelector((state) => state.modal.data);
   const isOpen = useSelector((state) => state.modal.isOpen);
+  const [processing, setProcessing] = useState(false);
 
   const handleClose = () => {
     dispatch(actions.hideModal());
@@ -23,11 +24,13 @@ function RemoveChannel() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setProcessing(true);
     try {
       await api.removeChannel({ id });
     } catch (err) {
       toast(t('errors.network'), { type: 'error' });
     }
+    setProcessing(false);
     dispatch(actions.setActiveChannel(defaultChannelId));
     handleClose();
   };
@@ -39,7 +42,7 @@ function RemoveChannel() {
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
-          <Button variant="danger" type="submit">
+          <Button variant="danger" type="submit" disabled={processing}>
             {t('channels.removeButton')}
           </Button>
         </Form>
