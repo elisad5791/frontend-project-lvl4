@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import { useSelector } from 'react-redux';
 import filter from 'leo-profanity';
@@ -16,6 +16,7 @@ function MessageForm() {
   const { t } = useTranslation();
   const activeChannelId = useSelector((state) => state.channels.activeChannel);
   const api = useApi();
+  const [processing, setProcessing] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -24,12 +25,14 @@ function MessageForm() {
     onSubmit: async (values, { resetForm }) => {
       const { username } = auth;
       const text = filter.clean(values.message);
+      setProcessing(true);
       try {
         await api.sendMessage({ username, text, channelId: activeChannelId });
         resetForm();
       } catch (e) {
         toast(t('errors.network'), { type: 'error' });
       }
+      setProcessing(false);
     },
   });
 
@@ -49,7 +52,7 @@ function MessageForm() {
           value={formik.values.message}
           aria-describedby="basic-addon2"
         />
-        <Button type="submit" variant="outline-secondary" id="button-addon2">
+        <Button type="submit" variant="outline-secondary" id="button-addon2" disabled={processing}>
           {t('messages.send')}
         </Button>
       </InputGroup>
