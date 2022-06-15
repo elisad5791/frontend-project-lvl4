@@ -28,7 +28,6 @@ function ChatPage() {
 
   useEffect(() => {
     const getData = async () => {
-      dispatch(actions.showModal({ type: 'processing' }));
       try {
         const token = auth.getToken();
         const headers = { Authorization: `Bearer ${token}` };
@@ -44,7 +43,6 @@ function ChatPage() {
         auth.logout();
         history.replace({ pathname: routes.loginPagePath() });
       }
-      dispatch(actions.hideModal());
     };
     getData();
   }, []);
