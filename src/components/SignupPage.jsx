@@ -11,6 +11,7 @@ import {
 import imgSignup from '../../assets/auth.png';
 import useAuth from '../hooks/useAuth.jsx';
 import routes from '../routes.js';
+import imgSpinner from '../../assets/spinner.gif';
 
 function SignupPage() {
   const { t } = useTranslation();
@@ -121,7 +122,7 @@ function SignupPage() {
               {invalid && <div className="text-danger mb-3">{t('errors.userExists')}</div>}
 
               <Button variant="primary" type="submit" disabled={processing}>
-                {t('auth.register')}
+                {processing ? <Image src={imgSpinner} width={16} height={16} /> : t('auth.register')}
               </Button>
               <ToastContainer />
             </Form>

@@ -4,11 +4,12 @@ import { useSelector } from 'react-redux';
 import filter from 'leo-profanity';
 import { useTranslation } from 'react-i18next';
 import {
-  InputGroup, FormControl, Button, FormLabel,
+  InputGroup, FormControl, Button, FormLabel, Image,
 } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import useApi from '../hooks/useApi.jsx';
 import useAuth from '../hooks/useAuth.jsx';
+import imgSpinner from '../../assets/spinner.gif';
 
 function MessageForm() {
   const auth = useAuth();
@@ -53,7 +54,7 @@ function MessageForm() {
           aria-describedby="basic-addon2"
         />
         <Button type="submit" variant="outline-secondary" id="button-addon2" disabled={processing}>
-          {t('messages.send')}
+          {processing ? <Image src={imgSpinner} width={16} height={16} /> : t('messages.send')}
         </Button>
       </InputGroup>
     </form>

@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import {
-  Modal, Button, Form,
+  Modal, Button, Form, Image,
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { actions } from '../../slices/index.js';
 import useApi from '../../hooks/useApi.jsx';
+import imgSpinner from '../../../assets/spinner.gif';
 
 function RemoveChannel() {
   const dispatch = useDispatch();
@@ -43,7 +44,7 @@ function RemoveChannel() {
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
           <Button variant="danger" type="submit" disabled={processing}>
-            {t('channels.removeButton')}
+            {processing ? <Image src={imgSpinner} width={16} height={16} /> : t('channels.removeButton')}
           </Button>
         </Form>
       </Modal.Body>

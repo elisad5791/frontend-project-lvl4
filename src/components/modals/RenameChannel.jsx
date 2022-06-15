@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import {
-  Modal, FormGroup, FormControl, Button, Form, FormLabel,
+  Modal, FormGroup, FormControl, Button, Form, FormLabel, Image,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import useApi from '../../hooks/useApi.jsx';
 import { actions, selectors } from '../../slices/index.js';
+import imgSpinner from '../../../assets/spinner.gif';
 
 function RenameChannel() {
   const dispatch = useDispatch();
@@ -68,7 +69,7 @@ function RenameChannel() {
           </FormGroup>
           {invalid && <div className="text-danger mb-3">{t('errors.channelExists')}</div>}
           <Button variant="primary" type="submit" disabled={processing}>
-            {t('submit')}
+            {processing ? <Image src={imgSpinner} width={16} height={16} /> : t('submit')}
           </Button>
         </Form>
       </Modal.Body>
