@@ -7,8 +7,6 @@ import { useTranslation } from 'react-i18next';
 import {
   Form, Button, Card, Image, Row, Col,
 } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
-import { actions } from '../slices/index.js';
 import imgLogin from '../../assets/chat.png';
 import useAuth from '../hooks/useAuth.jsx';
 import routes from '../routes.js';
@@ -18,7 +16,7 @@ function LoginPage() {
   const auth = useAuth();
   const [invalid, setInvalid] = useState(false);
   const history = useHistory();
-  const dispatch = useDispatch();
+  const [processing, setProcessing] = useState(false);
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -31,7 +29,7 @@ function LoginPage() {
       password: '',
     },
     onSubmit: async (values) => {
-      dispatch(actions.showModal({ type: 'processing' }));
+      setProcessing(true);
       try {
         await auth.login(values);
         setInvalid(false);
@@ -44,7 +42,7 @@ function LoginPage() {
           toast(t('errors.network'), { type: 'error' });
         }
       }
-      dispatch(actions.hideModal());
+      setProcessing(false);
     },
   });
   return (
@@ -81,7 +79,7 @@ function LoginPage() {
 
               {invalid && <div className="text-danger mb-3">{t('errors.auth')}</div>}
 
-              <Button variant="primary" type="submit">
+              <Button variant="primary" type="submit" disabled={processing}>
                 {t('auth.enter')}
               </Button>
               <ToastContainer />
