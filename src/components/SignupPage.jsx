@@ -5,21 +5,19 @@ import * as Yup from 'yup';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
 import {
   Form, Button, Card, Image, Row, Col,
 } from 'react-bootstrap';
 import imgSignup from '../../assets/auth.png';
 import useAuth from '../hooks/useAuth.jsx';
 import routes from '../routes.js';
-import { actions } from '../slices/index.js';
 
 function SignupPage() {
   const { t } = useTranslation();
   const auth = useAuth();
   const [invalid, setInvalid] = useState(false);
   const history = useHistory();
-  const dispatch = useDispatch();
+  const [processing, setProcessing] = useState(false);
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -45,7 +43,7 @@ function SignupPage() {
         .oneOf([Yup.ref('password'), null], t('errors.confirmation')),
     }),
     onSubmit: async (values) => {
-      dispatch(actions.showModal({ type: 'processing' }));
+      setProcessing(true);
       try {
         await auth.signup(values);
         setInvalid(false);
@@ -58,7 +56,7 @@ function SignupPage() {
           toast(t('errors.network'), { type: 'error' });
         }
       }
-      dispatch(actions.hideModal());
+      setProcessing(false);
     },
   });
 
@@ -122,7 +120,7 @@ function SignupPage() {
 
               {invalid && <div className="text-danger mb-3">{t('errors.userExists')}</div>}
 
-              <Button variant="primary" type="submit">
+              <Button variant="primary" type="submit" disabled={processing}>
                 {t('auth.register')}
               </Button>
               <ToastContainer />
