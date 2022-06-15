@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { actions } from '../../slices/index.js';
 import useApi from '../../hooks/useApi.jsx';
-import imgSpinner from '../../../assets/spinner.gif';
+import imgSpinner from '../../../assets/spinner.png';
 
 function RemoveChannel() {
   const dispatch = useDispatch();

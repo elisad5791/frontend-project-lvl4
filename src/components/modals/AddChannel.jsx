@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import useApi from '../../hooks/useApi.jsx';
 import { actions, selectors } from '../../slices/index.js';
-import imgSpinner from '../../../assets/spinner.gif';
+import imgSpinner from '../../../assets/spinner.png';
 
 function AddChannel() {
   const { t } = useTranslation();

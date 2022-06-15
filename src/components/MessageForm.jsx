@@ -9,7 +9,7 @@ import {
 import { toast } from 'react-toastify';
 import useApi from '../hooks/useApi.jsx';
 import useAuth from '../hooks/useAuth.jsx';
-import imgSpinner from '../../assets/spinner.gif';
+import imgSpinner from '../../assets/spinner.png';
 
 function MessageForm() {
   const auth = useAuth();

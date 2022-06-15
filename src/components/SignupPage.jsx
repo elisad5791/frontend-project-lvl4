@@ -11,7 +11,7 @@ import {
 import imgSignup from '../../assets/auth.png';
 import useAuth from '../hooks/useAuth.jsx';
 import routes from '../routes.js';
-import imgSpinner from '../../assets/spinner.gif';
+import imgSpinner from '../../assets/spinner.png';
 
 function SignupPage() {
   const { t } = useTranslation();

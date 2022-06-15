@@ -8,7 +8,7 @@ import {
   Form, Button, Card, Image, Row, Col,
 } from 'react-bootstrap';
 import imgLogin from '../../assets/chat.png';
-import imgSpinner from '../../assets/spinner.gif';
+import imgSpinner from '../../assets/spinner.png';
 import useAuth from '../hooks/useAuth.jsx';
 import routes from '../routes.js';
 
