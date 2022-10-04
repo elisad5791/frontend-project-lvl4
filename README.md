@@ -3,7 +3,6 @@
 ### Статус тестов и линтера:
 [![Actions Status](https://github.com/elisad5791/frontend-project-lvl4/workflows/hexlet-check/badge.svg)](https://github.com/elisad5791/frontend-project-lvl4/actions)
 [![Actions Status](https://github.com/elisad5791/frontend-project-lvl4/actions/workflows/linter.yml/badge.svg)](https://github.com/elisad5791/frontend-project-lvl4/actions//workflows/linter.yml)
-[![Maintainability](https://api.codeclimate.com/v1/badges/050b42d072df8c481b6a/maintainability)](https://codeclimate.com/github/elisad5791/frontend-project-lvl4/maintainability)
 
 ### Описание
 
