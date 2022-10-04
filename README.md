@@ -1,7 +1,6 @@
 # Чат
 
 ### Статус тестов и линтера:
-[![Actions Status](https://github.com/elisad5791/frontend-project-lvl4/workflows/hexlet-check/badge.svg)](https://github.com/elisad5791/frontend-project-lvl4/actions)
 [![Actions Status](https://github.com/elisad5791/frontend-project-lvl4/actions/workflows/linter.yml/badge.svg)](https://github.com/elisad5791/frontend-project-lvl4/actions//workflows/linter.yml)
 
 ### Описание
